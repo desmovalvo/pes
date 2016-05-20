@@ -3,6 +3,7 @@
 # system-wide libraries
 import sys
 import getopt
+import ConfigParser
 
 # local libraries
 from lib.output_helpers import *
@@ -10,6 +11,9 @@ from lib.kb_loader import *
 
 # main
 if __name__ == "__main__":
+
+    # work variables
+    config_file = "pes.conf"
 
     # instantiate an OutputHandler
     oh = OutputHelper("main", "blue")
@@ -53,8 +57,13 @@ if __name__ == "__main__":
         else:
             assert False, "unhandled option"
 
+    # read the configuration file
+    config = ConfigParser.RawConfigParser(allow_no_value=True)
+    config.readfp(open(config_file))
+    kbloader_config_file = config.get("files", "kbloader")
+
     # load the KB into the SIBs
-    kbl = KBLoader(True)
+    kbl = KBLoader(kbloader_config_file)
     for sib in sibs:
 
         # loading OWL files

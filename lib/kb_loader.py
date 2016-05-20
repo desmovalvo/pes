@@ -4,6 +4,7 @@
 # TODO: import the json ssap api
 import rdflib
 import traceback
+import ConfigParser
 from smart_m3.m3_kp_api import *
 
 # local libraries
@@ -13,14 +14,19 @@ from output_helpers import *
 class KBLoader:
 
     # init
-    def __init__(self, debug):
+    def __init__(self, config_file):
 
         """Constructor for the KB Loader class"""
         
+        # read the configuration file
+        config = ConfigParser.RawConfigParser(allow_no_value=True)
+        config.readfp(open(config_file))
+
         # create an output helpre
-        self.debug = debug
-        if  debug:
-            self.oh = OutputHelper("KBLoader", "blue")
+        self.debug = config.getboolean("debug", "log")
+        if self.debug:
+            color = config.get("debug", "color")
+            self.oh = OutputHelper("KBLoader", color)
 
 
     # load n3 file
