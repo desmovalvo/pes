@@ -9,6 +9,8 @@ from smart_m3.m3_kp_api import *
 
 # local libraries
 from output_helpers import *
+from owl_utils import *
+from n3_utils import *
 
 # class KB Loader
 class KBLoader:
@@ -21,31 +23,83 @@ class KBLoader:
         # read the configuration file
         config = ConfigParser.RawConfigParser(allow_no_value=True)
         config.readfp(open(config_file))
-
-        # create an output helpre
         self.debug = config.getboolean("debug", "log")
+        self.step = config.getint("loader", "step")
+    
+        # create an output helper
         if self.debug:
             color = config.get("debug", "color")
             self.oh = OutputHelper("KBLoader", color)
 
-
+    
     # load n3 file
-    def load_n3_file(self, sib_ip, sib_port, sib_name, sib_protocol, step, filename):
+    def load_n3_file(self, sib_host, sib_port, sib_name, sib_protocol, filename):
 
         """This method load the triples contained in the n3 file
         specified by filename into the given SIB"""
 
-        ### TODO: yet to implement
+        # debug print
+        if self.debug:
+            self.oh.p("load_n3_file", "Loading %s into %s (%s:%s)" % (filename, sib_name, sib_host, sib_port))
 
-        # connect to the sib
-        
-        # copy data
+        # parse the n3 file
+        self.oh.p("load_n3_file", "Parsing n3 file...")
+        try:
+            triple_list = get_triples_from_n3file(filename)
+        except N3Exception:
+            if self.debug:
+                self.oh.p("load_n3_file", "Error while parsing N3 file!", True)
+            return False
+
+        # connect to the sib        
+        kp = None
+        if sib_protocol == "SSAP":
+            try:
+                kp = m3_kp_api(False, sib_host, sib_port)
+            except Exception as e:
+                if self.debug:
+                    self.oh.p("load_n3_file", "Insertion failed!", True)
+                    print traceback.print_exc()
+                return False
+        else:
+            return False
+            
+        # buffered insert
+        counter = 0
+        ttl = []
+        for triple in triple_list:
+            counter += 1
+            ttl.append(triple)
+            if counter == self.step:
+                if sib_protocol == "SSAP":
+                    try:
+                        self.oh.p("load_n3_file", "Inserting %s triples..." % len(ttl))
+                        kp.load_rdf_insert(ttl)
+                        ttl = []
+                        counter = 0
+                    except Exception as e:
+                        if self.debug:
+                            self.oh.p("load_n3_file", "Insertion failed!", True)
+                            print traceback.print_exc()                    
+                        return False
+
+        if len(ttl) > 0:
+            if sib_protocol == "SSAP":
+                try:
+                    self.oh.p("load_n3_file", "Inserting %s triples..." % len(ttl))
+                    kp.load_rdf_insert(ttl)
+                except Exception as e:
+                    if self.debug:
+                        self.oh.p("load_n3_file", "Insertion failed!", True)
+                        print traceback.print_exc()                    
+                    return False
 
         # return
+        return True
         
 
     # load owl file
-    def load_owl_file(self, sib_host, sib_port, sib_name, sib_protocol, step, filename):
+    def load_owl_file(self, sib_host, sib_port, sib_name, sib_protocol, filename):
 
         """This method load the triples contained in the owl
         file specified by filename into the given SIB"""
@@ -54,83 +108,61 @@ class KBLoader:
         if self.debug:
             self.oh.p("load_owl_file", "Loading %s into %s (%s:%s)" % (filename, sib_name, sib_host, sib_port))
 
-        # work variables
-        kp = None
-
         # parse the owl file
-        g = rdflib.Graph()
+        self.oh.p("load_owl_file", "Parsing owl file...")
         try:
-            g.parse(filename, format='xml')
-        except Exception as e:
+            triple_list = get_triples_from_owlfile(filename)
+        except OWLException:
             if self.debug:
-                self.oh.p(load_owl_file, "Insertion failed!", True)
-                print traceback.print_exc()
+                self.oh.p("load_owl_file", "Error while parsing OWL file!", True)
             return False
-
+                
         # connect to the sib        
+        kp = None
         if sib_protocol == "SSAP":
             try:
                 kp = m3_kp_api(False, sib_host, sib_port)
             except Exception as e:
                 if self.debug:
-                    self.oh.p(load_owl_file, "Insertion failed!", True)
+                    self.oh.p("load_owl_file", "Insertion failed!", True)
                     print traceback.print_exc()
                 return False
         else:
             return False
-        
-        # copy data
-        triple_list = []
-        for triple in g:
-    
-            # subject
-            if unicode(type(triple[0])) == "<class 'rdflib.term.URIRef'>":
-                sub = URI(unicode(triple[0]))
-            else:
-                sub = bNode(unicode(triple[0]))
-                
-            # predicate
-            pred = URI(unicode(triple[1]))
-    
-            # object
-            if unicode(type(triple[2])) == "<class 'rdflib.term.URIRef'>":
-                ob = URI(unicode(triple[2]))
-            elif unicode(type(triple[2])) == "<class 'rdflib.term.Literal'>":
-                ob = Literal(triple[2].encode('utf-8'))
-            else:
-                ob = bNode(unicode(triple[2]))
-    
-            # build the triple and add it to the list
-            a = Triple(sub, pred, ob)
-            triple_list.append(a)
-
-            # proceed to insert them into the SIB if the
-            # number of triples is equal to the step
-            if len(triple_list) == step:
+            
+        # buffered insert
+        counter = 0
+        ttl = []
+        for triple in triple_list:
+            counter += 1
+            ttl.append(triple)
+            if counter == self.step:
                 if sib_protocol == "SSAP":
-                    try:                    
-                        kp.load_rdf_insert(triple_list)
-                        triple_list = []
+                    try:
+                        self.oh.p("load_owl_file", "Inserting %s triples..." % len(ttl))
+                        kp.load_rdf_insert(ttl)
+                        ttl = []
+                        counter = 0
                     except Exception as e:
                         if self.debug:
-                            self.oh.p(load_owl_file, "Insertion failed!", True)
-                            print traceback.print_exc()
+                            self.oh.p("load_owl_file", "Insertion failed!", True)
+                            print traceback.print_exc()                    
                         return False
-                else:
-                    return False
 
-        # insert remaining triples
-        if len(triple_list) > 0:
+        if len(ttl) > 0:
             if sib_protocol == "SSAP":
-                try:                    
-                    kp.load_rdf_insert(triple_list)
+                try:
+                    self.oh.p("load_owl_file", "Inserting %s triples..." % len(ttl))
+                    kp.load_rdf_insert(ttl)
                 except Exception as e:
                     if self.debug:
-                        self.oh.p(load_owl_file, "Insertion failed!", True)
+                        self.oh.p("load_owl_file", "Insertion failed!", True)
                         print traceback.print_exc()                    
                     return False
-            else:
-                return False
-            
+
         # return
         return True
+
+
+
+

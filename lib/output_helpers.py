@@ -22,6 +22,6 @@ class OutputHelper:
 
         header = "%s:%s> " % (self.class_name, method_name)
         if error:
-            print colored(header, self.error_color, attrs=[bold]) + message
+            print colored(header, self.error_color, attrs=["bold"]) + message
         else:
             print colored(header, self.color, attrs=["bold"]) + message

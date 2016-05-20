@@ -20,7 +20,7 @@ if __name__ == "__main__":
 
     # read command line parameters
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "s:j:i:t:o:n:p:", ["ssibs=", "jsibs=", "iterations=", "test=", "owlfiles=", "n3files=", "step="])
+        opts, args = getopt.getopt(sys.argv[1:], "s:j:i:t:o:n:", ["ssibs=", "jsibs=", "iterations=", "test=", "owlfiles=", "n3files="])
     except getopt.GetoptError as err:
         oh.p("__main__", "Wrong arguments", True)
 
@@ -28,7 +28,6 @@ if __name__ == "__main__":
     owl_files = []
     n3_files = []
     sibs = []
-    step = 100
     iterations = 1
 
     for opt, arg in opts:
@@ -52,8 +51,6 @@ if __name__ == "__main__":
                 owl_files.append(owl_file)
         elif opt in ("-i", "--iterations"):
             iterations = arg
-        elif opt in ("-p", "--step"):
-            step = arg
         else:
             assert False, "unhandled option"
 
@@ -68,13 +65,13 @@ if __name__ == "__main__":
 
         # loading OWL files
         for owl_file in owl_files:
-            success = kbl.load_owl_file(sib["host"], sib["port"], sib["name"], sib["protocol"], step, owl_file)
+            success = kbl.load_owl_file(sib["host"], sib["port"], sib["name"], sib["protocol"], owl_file)
             if not success:
-                sys.exit(255) # TODO: define error codes!
+                sys.exit(255)
 
         # loading N3 files
         for n3_file in n3_files:
-            success = kbl.load_n3_file(sib["host"], sib["port"], sib["name"], sib["protocol"], step, n3_file)
+            success = kbl.load_n3_file(sib["host"], sib["port"], sib["name"], sib["protocol"], n3_file)
             if not success:
                 sys.exit(255)
 
