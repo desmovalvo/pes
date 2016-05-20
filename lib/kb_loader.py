@@ -31,6 +31,27 @@ class KBLoader:
             color = config.get("debug", "color")
             self.oh = OutputHelper("KBLoader", color)
 
+
+    # clean the SIB
+    def clean_sib(self, sib_host, sib_port, sib_name, sib_protocol):
+        
+        """This method is used to clean the SIB before loading the KB"""
+
+        # connect to the sib and clean it!
+        kp = None
+        if sib_protocol == "SSAP":
+            try:
+                self.oh.p("clean_sib", "Cleaning the SIB %s (%s:%s)..." % (sib_name, sib_host, sib_port))
+                kp = m3_kp_api(False, sib_host, sib_port)
+                kp.load_rdf_remove(Triple(None, None, None))
+            except Exception as e:
+                if self.debug:
+                    self.oh.p("clean_sib", "Cleaning failed!", True)
+                    print traceback.print_exc()
+                return False
+        else:
+            return False
+        
     
     # load n3 file
     def load_n3_file(self, sib_host, sib_port, sib_name, sib_protocol, filename):
@@ -51,7 +72,7 @@ class KBLoader:
                 self.oh.p("load_n3_file", "Error while parsing N3 file!", True)
             return False
 
-        # connect to the sib        
+        # connect to the sib 
         kp = None
         if sib_protocol == "SSAP":
             try:
@@ -117,7 +138,7 @@ class KBLoader:
                 self.oh.p("load_owl_file", "Error while parsing OWL file!", True)
             return False
                 
-        # connect to the sib        
+        # connect to the sib
         kp = None
         if sib_protocol == "SSAP":
             try:
@@ -162,7 +183,3 @@ class KBLoader:
 
         # return
         return True
-
-
-
-

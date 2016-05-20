@@ -20,7 +20,7 @@ if __name__ == "__main__":
 
     # read command line parameters
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "s:j:i:t:o:n:", ["ssibs=", "jsibs=", "iterations=", "test=", "owlfiles=", "n3files="])
+        opts, args = getopt.getopt(sys.argv[1:], "s:j:i:t:o:n:c", ["ssibs=", "jsibs=", "iterations=", "test=", "owlfiles=", "n3files=", "clean"])
     except getopt.GetoptError as err:
         oh.p("__main__", "Wrong arguments", True)
 
@@ -29,6 +29,7 @@ if __name__ == "__main__":
     n3_files = []
     sibs = []
     iterations = 1
+    clean = False
 
     for opt, arg in opts:
         if opt in ("-s", "--ssibs"):
@@ -51,6 +52,8 @@ if __name__ == "__main__":
                 owl_files.append(owl_file)
         elif opt in ("-i", "--iterations"):
             iterations = arg
+        elif opt in ("-c", "--clean"):
+            clean = True
         else:
             assert False, "unhandled option"
 
@@ -62,6 +65,10 @@ if __name__ == "__main__":
     # load the KB into the SIBs
     kbl = KBLoader(kbloader_config_file)
     for sib in sibs:
+
+        # clean the SIBs
+        if clean:
+            kbl.clean_sib(sib["host"], sib["port"], sib["name"], sib["protocol"])
 
         # loading OWL files
         for owl_file in owl_files:
