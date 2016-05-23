@@ -100,7 +100,10 @@ if __name__ == "__main__":
             upd = UpdateTest(sibs, test_config_file)
 
             # run the test
-            upd.run()
+            success, errcode = upd.run()
+            if not success:
+                oh.p("__main__", "Failed with message: %s" % errcode, True)
+                sys.exit(255)
 
         elif test == "QUERY":
             pass

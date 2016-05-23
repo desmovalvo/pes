@@ -17,6 +17,17 @@ from output_helpers import *
 from JSON_kpi import KP as JKP
 from JSON_kpi import Triple as JTriple
 
+
+# class UpdateTestException
+class UpdateTestException(Exception):
+
+    def __init__(self, value):
+        self.parameter = value
+
+    def __str__(self):
+        return repr(self.parameter)
+
+
 # class UpdateTest
 class UpdateTest:
 
@@ -79,13 +90,26 @@ class UpdateTest:
         
         # run the right method depending on the update type
         if self.updatetype == "RDF-M3":
-            self.rdfm3_test()
+            try:
+                self.rdfm3_test()
+            except UpdateTestException as e:
+                return False, str(e)
+
         elif self.updatetype == "SPARQL":
-            self.sparql_test()
+            try:
+                self.sparql_test()
+            except UpdateTestException as e:
+                return False, str(e)
 
         # plot the graph
         if self.plot:
-            self.plot_chart()
+            try:
+                self.plot_chart()
+            except UpdateTestException as e:
+                return False, str(e)
+                
+        # return
+        return True, None
 
 
     # rdfm3-test
@@ -181,7 +205,7 @@ class UpdateTest:
                         except Exception as e:
                             if self.debug:
                                 self.oh.p("rdfm3_test", "Insertion failed with exception %s" % e, False)
-                            return False
+                            raise UpdateTestException(str(e))
 
                     elif sib["protocol"] == "JSSAP":
 
@@ -191,9 +215,7 @@ class UpdateTest:
                         except Exception as e:
                             if self.debug:
                                 self.oh.p("rdfm3_test", "Insertion failed with exception %s" % e, False)
-                            return False
-
-        return True
+                            raise UpdateTestException(str(e))
 
 
     # sparql-test
@@ -240,7 +262,8 @@ class UpdateTest:
             chart.render_to_file(chart_filename)
 
         else:
-            # TODO: maybe it is better to raise an exception
-            return False
+
+            # chart type not available
+            raise UpdateTestException("Chart type %s not available" % self.chart_type)
 
     
