@@ -2,7 +2,12 @@
 
 # system wide requirements
 from smart_m3.m3_kp_api import *
-import rdflib
+from rdflib import Graph
+from rdflib import URIRef
+from rdflib import Literal as JLiteral
+
+# local libraries
+from lib.JSON_kpi import Triple as JTriple
 
 
 # class N3Exception
@@ -16,13 +21,13 @@ class N3Exception(Exception):
 
 
 # get_triples_from_n3file
-def get_triples_from_n3file(filename):
+def get_triples_from_n3file(filename, protocol):
 
     """Utility that build the triple list from an n3 file"""
 
     # parsing
     try:
-        g = rdflib.Graph()
+        g = Graph()
         res = g.parse(filename, format='n3')
     except Exception as e:
         raise N3Exception("Parsing failed!")
@@ -30,22 +35,43 @@ def get_triples_from_n3file(filename):
     # extracting triples
     triple_list = []
     for triple in res:
-        
-        # build the triple
-        s = []
-        for t in triple:
-    
-            if type(t).__name__  == "URIRef":
-                s.append(URI(t))
-                
-            elif type(t).__name__  == "Literal":
-                s.append(Literal(t))
-    
-            elif type(t).__name__  == "BNode":
-                s.append( bNode(t) )
 
-        # add the triple to the list
-        triple_list.append(Triple(s[0], s[1], s[2]))
+        if protocol == "SSAP":
+            
+            # build the triple
+            s = []
+            for t in triple:
+                
+                if type(t).__name__  == "URIRef":
+                    s.append(URI(t))
+                
+                elif type(t).__name__  == "Literal":
+                    s.append(Literal(t))
+                
+                elif type(t).__name__  == "BNode":
+                    s.append(bNode(t))
+
+            # add the triple to the list
+            triple_list.append(Triple(s[0], s[1], s[2]))
+
+        elif protocol == "JSSAP":
+            
+            # build the triple
+            s = []
+            for t in triple:
+                
+                if type(t).__name__  == "URIRef":
+                    s.append(URIRef(t))
+                
+                elif type(t).__name__  == "Literal":
+                    s.append(JLiteral(t))
+                
+                elif type(t).__name__  == "BNode":
+                    s.append(bNode(t))
+
+            # add the triple to the list
+            triple_list.append(JTriple(s[0], s[1], s[2]))
 
     # return
+    print len(triple_list)
     return triple_list

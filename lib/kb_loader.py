@@ -8,6 +8,8 @@ import ConfigParser
 from smart_m3.m3_kp_api import *
 
 # local libraries
+from lib.JSON_kpi import Triple as JTriple
+from lib.JSON_kpi import KP as JKP
 from output_helpers import *
 from owl_utils import *
 from n3_utils import *
@@ -49,6 +51,16 @@ class KBLoader:
                     self.oh.p("clean_sib", "Cleaning failed!", True)
                     print traceback.print_exc()
                 return False
+        elif sib_protocol == "JSSAP":
+            try:
+                self.oh.p("clean_sib", "Cleaning the SIB %s (%s:%s)..." % (sib_name, sib_host, sib_port))
+                kp = JKP(sib_host, sib_port, "X", False)
+                kp.remove(JTriple(None, None, None))
+            except Exception as e:
+                if self.debug:
+                    self.oh.p("clean_sib", "Cleaning failed!", True)
+                    print traceback.print_exc()
+                return False        
         else:
             return False
         
@@ -66,7 +78,7 @@ class KBLoader:
         # parse the n3 file
         self.oh.p("load_n3_file", "Parsing n3 file...")
         try:
-            triple_list = get_triples_from_n3file(filename)
+            triple_list = get_triples_from_n3file(filename, sib_protocol)
         except N3Exception:
             if self.debug:
                 self.oh.p("load_n3_file", "Error while parsing N3 file!", True)
@@ -82,6 +94,14 @@ class KBLoader:
                     self.oh.p("load_n3_file", "Insertion failed!", True)
                     print traceback.print_exc()
                 return False
+        elif sib_protocol == "JSSAP":
+            try:
+                kp = JKP(sib_host, sib_port, "X", False)
+            except Exception as e:
+                if self.debug:
+                    self.oh.p("load_n3_file", "Insertion failed!", True)
+                    print traceback.print_exc()
+                return False
         else:
             return False
             
@@ -92,10 +112,12 @@ class KBLoader:
             counter += 1
             ttl.append(triple)
             if counter == self.step:
-                if sib_protocol == "SSAP":
                     try:
                         self.oh.p("load_n3_file", "Inserting %s triples..." % len(ttl))
-                        kp.load_rdf_insert(ttl)
+                        if sib_protocol == "SSAP":
+                            kp.load_rdf_insert(ttl)
+                        elif sib_protocol == "JSSAP":
+                            kp.insert(ttl)
                         ttl = []
                         counter = 0
                     except Exception as e:
@@ -105,10 +127,12 @@ class KBLoader:
                         return False
 
         if len(ttl) > 0:
-            if sib_protocol == "SSAP":
                 try:
                     self.oh.p("load_n3_file", "Inserting %s triples..." % len(ttl))
-                    kp.load_rdf_insert(ttl)
+                    if sib_protocol == "SSAP":
+                        kp.load_rdf_insert(ttl)
+                    elif sib_protocol == "JSSAP":
+                        kp.insert(ttl)
                 except Exception as e:
                     if self.debug:
                         self.oh.p("load_n3_file", "Insertion failed!", True)
@@ -132,7 +156,7 @@ class KBLoader:
         # parse the owl file
         self.oh.p("load_owl_file", "Parsing owl file...")
         try:
-            triple_list = get_triples_from_owlfile(filename)
+            triple_list = get_triples_from_owlfile(filename, sib_protocol)
         except OWLException:
             if self.debug:
                 self.oh.p("load_owl_file", "Error while parsing OWL file!", True)
@@ -148,6 +172,14 @@ class KBLoader:
                     self.oh.p("load_owl_file", "Insertion failed!", True)
                     print traceback.print_exc()
                 return False
+        elif sib_protocol == "JSSAP":
+            try:
+                kp = JKP(sib_host, sib_port, "X", False)
+            except Exception as e:
+                if self.debug:
+                    self.oh.p("load_owl_file", "Insertion failed!", True)
+                    print traceback.print_exc()
+                return False
         else:
             return False
             
@@ -158,27 +190,31 @@ class KBLoader:
             counter += 1
             ttl.append(triple)
             if counter == self.step:
-                if sib_protocol == "SSAP":
-                    try:
-                        self.oh.p("load_owl_file", "Inserting %s triples..." % len(ttl))
-                        kp.load_rdf_insert(ttl)
-                        ttl = []
-                        counter = 0
-                    except Exception as e:
-                        if self.debug:
-                            self.oh.p("load_owl_file", "Insertion failed!", True)
-                            print traceback.print_exc()                    
-                        return False
-
-        if len(ttl) > 0:
-            if sib_protocol == "SSAP":
                 try:
                     self.oh.p("load_owl_file", "Inserting %s triples..." % len(ttl))
-                    kp.load_rdf_insert(ttl)
+                    if sib_protocol == "SSAP":
+                        kp.load_rdf_insert(ttl)
+                    elif sib_protocol == "JSSAP":
+                        kp.insert(ttl)
+                    ttl = []
+                    counter = 0
                 except Exception as e:
                     if self.debug:
                         self.oh.p("load_owl_file", "Insertion failed!", True)
                         print traceback.print_exc()                    
+                        return False
+
+        if len(ttl) > 0:
+            try:
+                self.oh.p("load_owl_file", "Inserting %s triples..." % len(ttl))
+                if sib_protocol == "SSAP":
+                    kp.load_rdf_insert(ttl)
+                elif sib_protocol == "JSSAP":
+                    kp.insert(ttl)
+            except Exception as e:
+                if self.debug:
+                    self.oh.p("load_owl_file", "Insertion failed!", True)
+                    print traceback.print_exc()                    
                     return False
 
         # return
