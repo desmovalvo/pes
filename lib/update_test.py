@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 # system-wide libraries
+import csv
 import time
 import timeit
 import traceback
@@ -68,6 +69,9 @@ class UpdateTest:
         self.sleep = config.getfloat("update", "sleep")
         self.iterations = config.getint("update", "iterations")
 
+        # config csv section
+        self.csv = config.getboolean("csv", "csv")
+
         # config chart section
         self.plot = config.getboolean("chart", "plot")
         if self.plot:
@@ -105,6 +109,13 @@ class UpdateTest:
         if self.plot:
             try:
                 self.plot_chart()
+            except UpdateTestException as e:
+                return False, str(e)
+
+        # write the csv
+        if self.csv:
+            try:
+                self.csv_output()
             except UpdateTestException as e:
                 return False, str(e)
                 
@@ -201,7 +212,7 @@ class UpdateTest:
 
                         # try to insert and measure time
                         try:
-                            self.results[sib["name"]][str(len(triple_list))].append(timeit.timeit(lambda: sib["kp"].load_rdf_insert(triple_list), number=1))
+                            self.results[sib["name"]][str(len(triple_list))].append(round(timeit.timeit(lambda: sib["kp"].load_rdf_insert(triple_list), number=1), 3))
                         except Exception as e:
                             if self.debug:
                                 self.oh.p("rdfm3_test", "Insertion failed with exception %s" % e, False)
@@ -211,7 +222,7 @@ class UpdateTest:
 
                         # try to insert and measure time
                         try:
-                            self.results[sib["name"]][str(len(triple_list))].append(timeit.timeit(lambda: sib["kp"].insert(triple_list), number=1))
+                            self.results[sib["name"]][str(len(triple_list))].append(round(timeit.timeit(lambda: sib["kp"].insert(triple_list), number=1), 3))
                         except Exception as e:
                             if self.debug:
                                 self.oh.p("rdfm3_test", "Insertion failed with exception %s" % e, False)
@@ -222,6 +233,49 @@ class UpdateTest:
     def sparql_test(self):
         pass
 
+        
+    # csv output
+    def csv_output(self):
+        
+        """This method is used to report the results of
+        an update test to a csv file"""
+
+        # determine the file name
+        csv_filename = "update-%s-%sstep-%smax-%siter-%s-%s.csv" % (self.updatetype,
+                                                                    self.step,
+                                                                    self.limit,
+                                                                    self.iterations,
+                                                                    self.chart_type.lower(),
+                                                                    self.testdatetime)
+
+        # initialize the csv file
+        csvfile_stream = open(csv_filename, "w")
+        csvfile_writer = csv.writer(csvfile_stream, delimiter=',', quoting=csv.QUOTE_MINIMAL)
+
+        # iterate over the SIBs
+        for sib in self.results.keys():                    
+                         
+            # iterate over the possible block lengths
+            for triple_length in sorted(self.results[sib].keys(), key=int):
+            
+                row = [sib]
+    
+                # add the length of the block to the row
+                row.append(triple_length)
+
+                # add all the times
+                for value in self.results[sib][triple_length]:
+                    row.append(value)
+
+                # add the mean value of the times to the row
+                row.append(round(mean(self.results[sib][triple_length]),3))                
+
+                # write the row
+                csvfile_writer.writerow(row)
+                
+        # close the csv file
+        csvfile_stream.close()
+                
 
     # plot
     def plot_chart(self):
@@ -252,7 +306,6 @@ class UpdateTest:
                 # iterate over the possible block lengths
                 values = []
                 for triple_length in sorted(self.results[sib].keys(), key=int):
-                    print self.results[sib][triple_length]
                     values.append(mean(self.results[sib][triple_length]))                
 
                 # add the values to the chart
