@@ -99,12 +99,12 @@ if __name__ == "__main__":
             # create an instance of the UpdateTest class
             upd = UpdateTest(sibs, test_config_file)
 
-            # run the test and collect statistics
-            success = upd.run()
+            # run the test
+            upd.run()
 
         elif test == "QUERY":
             pass
         elif test == "SUBSCRIPTION":
             pass
 
-    # plot the charts
+
