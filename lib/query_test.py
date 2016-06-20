@@ -113,7 +113,10 @@ class QueryTest:
 
         elif self.querytype == "SPARQL":
             try:
-                self.sparql_test()
+                if self.with_update:
+                    self.complex_sparql_test()
+                else:
+                    self.basic_sparql_test()
             except QueryTestException as e:
                 return False, str(e)
 
@@ -126,7 +129,10 @@ class QueryTest:
                     else:
                         self.plot_basic_chart()
                 elif self.querytype == "SPARQL":
-                    self.plot_basic_chart()
+                    if self.with_update:
+                        self.plot_complex_chart()
+                    else:
+                        self.plot_basic_chart()
 
             except QueryTestException as e:
                 return False, str(e)
@@ -140,7 +146,10 @@ class QueryTest:
                     else:
                         self.csv_basic_output()
                 elif self.querytype == "SPARQL":
-                    self.csv_basic_output()
+                    if self.with_update:
+                        self.csv_complex_output()
+                    else:
+                        self.csv_basic_output()
 
             except QueryTestException as e:
                 return False, str(e)
@@ -195,7 +204,7 @@ class QueryTest:
                     except Exception as e:
                         if self.debug:
                             self.oh.p("rdfm3_test", "Query failed with exception %s" % e, False)
-                            raise UpdateTestException(str(e))
+                            raise QueryTestException(str(e))
                             
                 elif sib["protocol"] == "JSSAP":
     
@@ -211,7 +220,7 @@ class QueryTest:
                     except Exception as e:
                         if self.debug:
                             self.oh.p("rdfm3_test", "Query failed with exception %s" % e, False)
-                            raise UpdateTestException(str(e))
+                            raise QueryTestException(str(e))
                             
                     # sleep
                     time.sleep(self.sleep)
@@ -327,7 +336,7 @@ class QueryTest:
                         except Exception as e:
                             if self.debug:
                                 self.oh.p("rdfm3_test", "Insertion failed with exception %s" % e, False)
-                            raise UpdateTestException(str(e))
+                            raise QueryTestException(str(e))
 
                     elif sib["protocol"] == "JSSAP":
 
@@ -343,11 +352,11 @@ class QueryTest:
                         except Exception as e:
                             if self.debug:
                                 self.oh.p("rdfm3_test", "Insertion failed with exception %s" % e, False)
-                            raise UpdateTestException(str(e))
+                            raise QueryTestException(str(e))
 
     
     # sparql test
-    def sparql_test(self):
+    def basic_sparql_test(self):
 
         # initialize the results
         self.results = {}
@@ -389,7 +398,7 @@ class QueryTest:
                     except Exception as e:
                         if self.debug:
                             self.oh.p("sparql_test", "Query failed with exception %s" % e, False)
-                            raise UpdateTestException(str(e))
+                            raise QueryTestException(str(e))
                             
                 elif sib["protocol"] == "JSSAP":
     
@@ -402,10 +411,133 @@ class QueryTest:
                     except Exception as e:
                         if self.debug:
                             self.oh.p("sparql_test", "Query failed with exception %s" % e, False)
-                            raise UpdateTestException(str(e))
+                            raise QueryTestException(str(e))
                             
                     # sleep
                     time.sleep(self.sleep)
+
+
+    # complex sparql-test
+    def complex_sparql_test(self):
+
+        # initialize the results
+        self.results = {}
+        for sib in self.sibs:
+            self.results[sib["name"]] = {}
+            for num_triples in range(self.upd_step, self.upd_limit + self.upd_step, self.upd_step):
+                self.results[sib["name"]][str(num_triples)] = []
+
+        # connect to the SIBs
+        for sib in self.sibs:
+            
+            # SSAP or JSSAP?
+            if sib["protocol"] == "SSAP":
+
+                # connect and add the KP to the dictionary
+                kp = m3_kp_api(False, sib["host"], sib["port"])
+                sib["kp"] = kp
+
+            elif sib["protocol"] == "JSSAP":
+                
+                # connect and add the KP  to the dictionary
+                kp = JKP(sib["host"], sib["port"], "X", False)
+                sib["kp"] = kp
+
+        # iterate over the SIBs
+        for sib in self.sibs:
+
+            # debug
+            if self.debug:
+                self.oh.p("complex_sparql_test", "Testing sib %s" % sib["name"])
+
+            # iterate over the range
+            for num_triples in range(self.upd_step, self.upd_limit + self.upd_step, self.upd_step):
+                
+                # debug
+                if self.debug:
+                    self.oh.p("complex_sparql_test", "- Block dimension: %s" % num_triples)
+
+                # build a triple list with num_triples triples 
+                triple_list = []
+                for triple_number in xrange(num_triples):
+                    
+                    if sib["protocol"] == "SSAP":
+                    
+                        # TODO: add a check also for subject and predicate
+                        obj = None
+                        if self.upd_object_type == "URI":
+                            obj = URI(self.upd_object_template % triple_number)
+                        else:
+                            obj = Literal(self.upd_object_template % triple_number)                    
+                            triple_list.append(Triple(URI(self.upd_subject_template % triple_number), 
+                                                      URI(self.upd_predicate_template % triple_number), 
+                                                      obj))
+
+                    elif sib["protocol"] == "JSSAP":
+
+                        # TODO: add a check also for subject and predicate
+                        obj = None
+                        if self.upd_object_type == "URI":
+                            obj = URIRef(self.upd_object_template % triple_number)
+                        else:
+                            obj = Literal(self.upd_object_template % triple_number)                    
+                            triple_list.append(JTriple(URIRef(self.upd_subject_template % triple_number), 
+                                                       URIRef(self.upd_predicate_template % triple_number), 
+                                                       obj))
+
+                # insert
+                if sib["protocol"] == "SSAP":
+
+                    # clean the SIB                        
+                    sib["kp"].load_rdf_remove(Triple(None, None, None))
+
+                    # insert
+                    sib["kp"].load_rdf_insert(triple_list)
+
+                elif sib["protocol"] == "JSSAP":
+
+                    # clean the SIB                    
+                    sib["kp"].remove([JTriple(None, None, None)])
+
+                    # insert
+                    sib["kp"].insert(triple_list)
+                                    
+                # iterate over the number of iterations
+                for iteration in range(self.iterations):
+
+                    # debug
+                    if self.debug:
+                        self.oh.p("complex_sparql_test", "--- Iteration: %s" % iteration)
+
+                    # wait
+                    time.sleep(self.sleep)
+
+                    # insert data
+                    if sib["protocol"] == "SSAP":
+
+                        # try to retrieve data and measure time
+                        try:
+
+                            # query
+                            self.results[sib["name"]][str(len(triple_list))].append(round(timeit.timeit(lambda: sib["kp"].load_query_sparql(self.query_text), number=1), 3))
+
+                        except Exception as e:
+                            if self.debug:
+                                self.oh.p("complex_sparql_test", "Insertion failed with exception %s" % e, False)
+                            raise QueryTestException(str(e))
+
+                    elif sib["protocol"] == "JSSAP":
+
+                        # try to insert and measure time
+                        try:
+
+                            # query
+                            self.results[sib["name"]][str(len(triple_list))].append(round(timeit.timeit(lambda: sib["kp"].query_sparql(self.query_text), number=1), 3))
+
+                        except Exception as e:
+                            if self.debug:
+                                self.oh.p("complex_sparql_test", "Insertion failed with exception %s" % e, False)
+                            raise QueryTestException(str(e))
 
 
     # csv output
@@ -523,7 +655,7 @@ class QueryTest:
         else:
 
             # chart type not available
-            raise UpdateTestException("Chart type %s not available" % self.chart_type)
+            raise QueryTestException("Chart type %s not available" % self.chart_type)
 
 
     # plot
@@ -563,4 +695,4 @@ class QueryTest:
         else:
 
             # chart type not available
-            raise UpdateTestException("Chart type %s not available" % self.chart_type)
+            raise QueryTestException("Chart type %s not available" % self.chart_type)
