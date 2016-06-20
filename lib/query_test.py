@@ -61,6 +61,22 @@ class QueryTest:
             self.update_text = config.get("query", "text")
         self.sleep = config.getfloat("query", "sleep")
         self.iterations = config.getint("query", "iterations")
+        self.with_update = config.getboolean("query", "with_update")
+        
+        # read update parameters
+        if self.with_update:
+            self.updatetype = config.get("update", "type")
+            if self.updatetype == "RDF-M3":
+                self.upd_subject_template = config.get("update", "subject_template")
+                self.upd_predicate_template = config.get("update", "predicate_template")
+                self.upd_object_template = config.get("update", "object_template")
+                self.upd_subject_type = config.get("update", "subject_type")
+                self.upd_predicate_type = config.get("update", "predicate_type")
+                self.upd_object_type = config.get("update", "object_type")
+            elif self.updatetype == "SPARQL":
+                self.update_text = config.get("update", "text")
+            self.upd_step = config.getint("update", "step")
+            self.upd_limit = config.getint("update", "limit")
 
         # config csv section
         self.csv = config.getboolean("csv", "csv")
@@ -88,7 +104,10 @@ class QueryTest:
         # run the right method depending on the update type
         if self.querytype == "RDF-M3":
             try:
-                self.rdfm3_test()
+                if self.with_update:
+                    self.complex_rdfm3_test()
+                else:
+                    self.basic_rdfm3_test()
             except QueryTestException as e:
                 return False, str(e)
 
@@ -101,14 +120,22 @@ class QueryTest:
         # plot the graph
         if self.plot:
             try:
-                self.plot_chart()
+                if self.with_update:
+                    self.plot_complex_chart()
+                else:
+                    self.plot_basic_chart()
+
             except QueryTestException as e:
                 return False, str(e)
 
         # write the csv
         if self.csv:
             try:
-                self.csv_output()
+                if self.with_update:
+                    self.csv_complex_output()
+                else:
+                    self.csv_basic_output()
+
             except QueryTestException as e:
                 return False, str(e)
                 
@@ -116,8 +143,8 @@ class QueryTest:
         return True, None
 
 
-    # rdf-m3 test
-    def rdfm3_test(self):
+    # basic rdf-m3 test
+    def basic_rdfm3_test(self):
 
         # initialize the results
         self.results = {}
@@ -148,7 +175,7 @@ class QueryTest:
     
                 # debug
                 if self.debug:
-                    self.oh.p("rdfm3_test", "--- Iteration: %s" % iteration)
+                    self.oh.p("basic_rdfm3_test", "--- Iteration: %s" % iteration)
                         
                 # retrieve data
                 if sib["protocol"] == "SSAP":
@@ -171,7 +198,10 @@ class QueryTest:
                         
                     # try to query and measure time
                     try:
+
+                        # query
                         self.results[sib["name"]].append(round(timeit.timeit(lambda: sib["kp"].query_rdf([triple_pattern]), number=1), 3))
+
                     except Exception as e:
                         if self.debug:
                             self.oh.p("rdfm3_test", "Query failed with exception %s" % e, False)
@@ -179,7 +209,135 @@ class QueryTest:
                             
                     # sleep
                     time.sleep(self.sleep)
-    
+
+
+    # rdfm3-test
+    def complex_rdfm3_test(self):
+
+        # initialize the results
+        self.results = {}
+        for sib in self.sibs:
+            self.results[sib["name"]] = {}
+            for num_triples in range(self.upd_step, self.upd_limit + self.upd_step, self.upd_step):
+                self.results[sib["name"]][str(num_triples)] = []
+
+        # connect to the SIBs
+        for sib in self.sibs:
+            
+            # SSAP or JSSAP?
+            if sib["protocol"] == "SSAP":
+
+                # connect and add the KP to the dictionary
+                kp = m3_kp_api(False, sib["host"], sib["port"])
+                sib["kp"] = kp
+
+            elif sib["protocol"] == "JSSAP":
+                
+                # connect and add the KP  to the dictionary
+                kp = JKP(sib["host"], sib["port"], "X", False)
+                sib["kp"] = kp
+
+        # iterate over the SIBs
+        for sib in self.sibs:
+
+            # debug
+            if self.debug:
+                self.oh.p("rdfm3_test", "Testing sib %s" % sib["name"])
+
+            # iterate over the range
+            for num_triples in range(self.upd_step, self.upd_limit + self.upd_step, self.upd_step):
+                
+                # debug
+                if self.debug:
+                    self.oh.p("rdfm3_test", "- Block dimension: %s" % num_triples)
+
+                # build a triple list with num_triples triples 
+                triple_list = []
+                for triple_number in xrange(num_triples):
+                    
+                    if sib["protocol"] == "SSAP":
+                    
+                        # TODO: add a check also for subject and predicate
+                        obj = None
+                        if self.upd_object_type == "URI":
+                            obj = URI(self.upd_object_template % triple_number)
+                        else:
+                            obj = Literal(self.upd_object_template % triple_number)                    
+                            triple_list.append(Triple(URI(self.upd_subject_template % triple_number), 
+                                                      URI(self.upd_predicate_template % triple_number), 
+                                                      obj))
+
+                    elif sib["protocol"] == "JSSAP":
+
+                        # TODO: add a check also for subject and predicate
+                        obj = None
+                        if self.upd_object_type == "URI":
+                            obj = URIRef(self.upd_object_template % triple_number)
+                        else:
+                            obj = Literal(self.upd_object_template % triple_number)                    
+                            triple_list.append(JTriple(URIRef(self.upd_subject_template % triple_number), 
+                                                       URIRef(self.upd_predicate_template % triple_number), 
+                                                       obj))
+
+                # insert
+                if sib["protocol"] == "SSAP":
+
+                    # clean the SIB                        
+                    sib["kp"].load_rdf_remove(Triple(None, None, None))
+
+                    # insert
+                    sib["kp"].load_rdf_insert(triple_list)
+
+                elif sib["protocol"] == "JSSAP":
+
+                    # clean the SIB                    
+                    sib["kp"].remove([JTriple(None, None, None)])
+
+                    # insert
+                    sib["kp"].insert(triple_list)
+                                    
+                # iterate over the number of iterations
+                for iteration in range(self.iterations):
+
+                    # debug
+                    if self.debug:
+                        self.oh.p("rdfm3_test", "--- Iteration: %s" % iteration)
+
+                    # wait
+                    time.sleep(self.sleep)
+
+                    # insert data
+                    if sib["protocol"] == "SSAP":
+
+                        # try to retrieve data and measure time
+                        try:
+
+                            # define the triple pattern for the query
+                            triple_pattern = Triple(URI(self.subject_template), URI(self.predicate_template), URI(self.object_template))
+
+                            # query
+                            self.results[sib["name"]][str(len(triple_list))].append(round(timeit.timeit(lambda: sib["kp"].load_query_rdf(triple_pattern), number=1), 3))
+
+                        except Exception as e:
+                            if self.debug:
+                                self.oh.p("rdfm3_test", "Insertion failed with exception %s" % e, False)
+                            raise UpdateTestException(str(e))
+
+                    elif sib["protocol"] == "JSSAP":
+
+                        # try to insert and measure time
+                        try:
+
+                            # define the triple pattern for the query
+                            triple_pattern = JTriple(URIRef(self.subject_template), URIRef(self.predicate_template), URIRef(self.object_template))
+                        
+                            # query
+                            self.results[sib["name"]][str(len(triple_list))].append(round(timeit.timeit(lambda: sib["kp"].query_rdf(triple_pattern), number=1), 3))
+
+                        except Exception as e:
+                            if self.debug:
+                                self.oh.p("rdfm3_test", "Insertion failed with exception %s" % e, False)
+                            raise UpdateTestException(str(e))
 
     
     # sparql test
@@ -190,7 +348,7 @@ class QueryTest:
 
 
     # csv output
-    def csv_output(self):
+    def csv_basic_output(self):
         
         """This method is used to report the results of
         a query test to a csv file"""
@@ -224,8 +382,50 @@ class QueryTest:
         csvfile_stream.close()
 
 
+    # csv output
+    def csv_complex_output(self):
+        
+        """This method is used to report the results of
+        a query test to a csv file"""
+
+        # determine the file name
+        csv_filename = "query-%s-%siter-%s-%s.csv" % (self.querytype,
+                                                      self.iterations,
+                                                      self.chart_type.lower(),
+                                                      self.testdatetime)
+
+        # initialize the csv file
+        csvfile_stream = open(csv_filename, "w")
+        csvfile_writer = csv.writer(csvfile_stream, delimiter=',', quoting=csv.QUOTE_MINIMAL)
+
+        # iterate over the SIBs
+        for sib in self.results.keys():                    
+
+            # iterate over the possible block lengths
+            for triple_length in sorted(self.results[sib].keys(), key=int):
+            
+                row = [sib]
+    
+                # add the length of the block to the row
+                row.append(triple_length)
+
+                # add all the times
+                for value in self.results[sib][triple_length]:
+                    row.append(value)
+
+                # add the mean value of the times to the row
+                row.append(round(mean(self.results[sib][triple_length]),3))                
+
+                # write the row
+                csvfile_writer.writerow(row)
+                
+        # close the csv file
+        csvfile_stream.close()
+
+
+
     # plot
-    def plot_chart(self):
+    def plot_complex_chart(self):
         
         """This method is used to plot the chart"""
             
@@ -250,7 +450,48 @@ class QueryTest:
                 
                 # iterate over the possible block lengths
                 values = []
-                values.append(mean(self.results[sib]))
+                for triple_length in sorted(self.results[sib].keys(), key=int):
+                    values.append(mean(self.results[sib][triple_length]))      
+
+                # add the values to the chart
+                chart.add(sib, values)
+
+            # plot the chart
+            chart.render_to_file(chart_filename)
+
+        else:
+
+            # chart type not available
+            raise UpdateTestException("Chart type %s not available" % self.chart_type)
+
+
+    # plot
+    def plot_basic_chart(self):
+        
+        """This method is used to plot the chart"""
+            
+        # determine the type of the chart
+        if self.chart_type == "Bar":
+            
+            # determine the file name
+            chart_filename = "query-%s-%siter-%s-%s.svg" % (self.querytype,
+                                                            self.iterations,
+                                                            self.chart_type.lower(),
+                                                            self.testdatetime)
+
+            # initialise the chart
+            chart = Bar()
+            chart.title = self.chart_title
+            chart.x_title = self.chart_x_title
+            chart.y_title = self.chart_y_title
+            chart.style = eval(self.chart_style)
+
+            # iterate over the SIBs
+            for sib in self.results.keys():                    
+                
+                # iterate over the possible block lengths
+                values = []
+                values.append(mean(self.results[sib]))      
 
                 # add the values to the chart
                 chart.add(sib, values)
