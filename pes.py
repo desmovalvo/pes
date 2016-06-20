@@ -8,6 +8,7 @@ import ConfigParser
 # local libraries
 from lib.output_helpers import *
 from lib.update_test import *
+from lib.query_test import *
 from lib.kb_loader import *
 
 # main
@@ -106,7 +107,19 @@ if __name__ == "__main__":
                 sys.exit(255)
 
         elif test == "QUERY":
-            pass
+
+            # debug print
+            oh.p("__main__", "Running the QUERY test")
+            
+            # create an instance of the UpdateTest class
+            que = QueryTest(sibs, test_config_file)
+
+            # run the test
+            success, errcode = que.run()
+            if not success:
+                oh.p("__main__", "Failed with message: %s" % errcode, True)
+                sys.exit(255)
+
         elif test == "SUBSCRIPTION":
             pass
 
