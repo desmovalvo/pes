@@ -57,8 +57,8 @@ class QueryTest:
             self.subject_type = config.get("query", "subject_type")
             self.predicate_type = config.get("query", "predicate_type")
             self.object_type = config.get("query", "object_type")
-        elif self.updatetype == "SPARQL":
-            self.update_text = config.get("query", "text")
+        elif self.querytype == "SPARQL":
+            self.query_text = config.get("query", "text")
         self.sleep = config.getfloat("query", "sleep")
         self.iterations = config.getint("query", "iterations")
         self.with_update = config.getboolean("query", "with_update")
@@ -120,9 +120,12 @@ class QueryTest:
         # plot the graph
         if self.plot:
             try:
-                if self.with_update:
-                    self.plot_complex_chart()
-                else:
+                if self.querytype == "RDF-M3":
+                    if self.with_update:
+                        self.plot_complex_chart()
+                    else:
+                        self.plot_basic_chart()
+                elif self.querytype == "SPARQL":
                     self.plot_basic_chart()
 
             except QueryTestException as e:
@@ -131,9 +134,12 @@ class QueryTest:
         # write the csv
         if self.csv:
             try:
-                if self.with_update:
-                    self.csv_complex_output()
-                else:
+                if self.querytype == "RDF-M3":
+                    if self.with_update:
+                        self.csv_complex_output()
+                    else:
+                        self.csv_basic_output()
+                elif self.querytype == "SPARQL":
                     self.csv_basic_output()
 
             except QueryTestException as e:
@@ -211,7 +217,7 @@ class QueryTest:
                     time.sleep(self.sleep)
 
 
-    # rdfm3-test
+    # complex rdfm3-test
     def complex_rdfm3_test(self):
 
         # initialize the results
@@ -343,8 +349,63 @@ class QueryTest:
     # sparql test
     def sparql_test(self):
 
-        # TODO: implement it
-        pass
+        # initialize the results
+        self.results = {}
+        for sib in self.sibs:
+            self.results[sib["name"]] = []
+
+        # connect to the SIBs
+        for sib in self.sibs:
+            
+            # SSAP or JSSAP?
+            if sib["protocol"] == "SSAP":
+
+                # connect and add the KP to the dictionary
+                kp = m3_kp_api(False, sib["host"], sib["port"])
+                sib["kp"] = kp
+
+            elif sib["protocol"] == "JSSAP":
+                
+                # connect and add the KP  to the dictionary
+                kp = JKP(sib["host"], sib["port"], "X", False)
+                sib["kp"] = kp
+
+        # iterate over the SIBs
+        for sib in self.sibs:
+
+            # iterate over the number of iterations
+            for iteration in range(self.iterations):
+    
+                # debug
+                if self.debug:
+                    self.oh.p("sparql_test", "--- Iteration: %s" % iteration)
+                        
+                # retrieve data
+                if sib["protocol"] == "SSAP":
+                
+                    # try to query and measure time
+                    try:
+                        self.results[sib["name"]].append(round(timeit.timeit(lambda: sib["kp"].load_query_sparql(self.query_text), number=1), 3))
+                    except Exception as e:
+                        if self.debug:
+                            self.oh.p("sparql_test", "Query failed with exception %s" % e, False)
+                            raise UpdateTestException(str(e))
+                            
+                elif sib["protocol"] == "JSSAP":
+    
+                    # try to query and measure time
+                    try:
+
+                        # query
+                        self.results[sib["name"]].append(round(timeit.timeit(lambda: sib["kp"].query_sparql(self.query_text), number=1), 3))
+
+                    except Exception as e:
+                        if self.debug:
+                            self.oh.p("sparql_test", "Query failed with exception %s" % e, False)
+                            raise UpdateTestException(str(e))
+                            
+                    # sleep
+                    time.sleep(self.sleep)
 
 
     # csv output
