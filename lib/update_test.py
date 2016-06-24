@@ -8,7 +8,10 @@ import traceback
 from pygal import *
 import ConfigParser
 from rdflib import *
-from numpy import mean
+from numpy import mean as nmean
+from numpy import min as nmin
+from numpy import max as nmax
+from numpy import var as nvar
 from pygal.style import *
 from datetime import datetime
 from smart_m3.m3_kp_api import *
@@ -212,7 +215,7 @@ class UpdateTest:
 
                         # try to insert and measure time
                         try:
-                            self.results[sib["name"]][str(len(triple_list))].append(round(timeit.timeit(lambda: sib["kp"].load_rdf_insert(triple_list), number=1), 3))
+                            self.results[sib["name"]][str(len(triple_list))].append(round(timeit.timeit(lambda: sib["kp"].load_rdf_insert(triple_list), number=1) * 1000, 3))
                         except Exception as e:
                             if self.debug:
                                 self.oh.p("rdfm3_test", "Insertion failed with exception %s" % e, False)
@@ -222,7 +225,7 @@ class UpdateTest:
 
                         # try to insert and measure time
                         try:
-                            self.results[sib["name"]][str(len(triple_list))].append(round(timeit.timeit(lambda: sib["kp"].insert(triple_list), number=1), 3))
+                            self.results[sib["name"]][str(len(triple_list))].append(round(timeit.timeit(lambda: sib["kp"].insert(triple_list), number=1) * 1000, 3))
                         except Exception as e:
                             if self.debug:
                                 self.oh.p("rdfm3_test", "Insertion failed with exception %s" % e, False)
@@ -268,11 +271,14 @@ class UpdateTest:
                     row.append(value)
 
                 # add the mean value of the times to the row
-                row.append(round(mean(self.results[sib][triple_length]),3))                
+                row.append(round(nmean(self.results[sib][triple_length]),3))                
+                row.append(round(nmin(self.results[sib][triple_length]),3))                
+                row.append(round(nmax(self.results[sib][triple_length]),3))                
+                row.append(round(nvar(self.results[sib][triple_length]),3))                
 
                 # write the row
                 csvfile_writer.writerow(row)
-                
+
         # close the csv file
         csvfile_stream.close()
                 
@@ -306,10 +312,16 @@ class UpdateTest:
                 # iterate over the possible block lengths
                 values = []
                 for triple_length in sorted(self.results[sib].keys(), key=int):
-                    values.append(mean(self.results[sib][triple_length]))                
+                    values.append(nmean(self.results[sib][triple_length]))                
 
                 # add the values to the chart
                 chart.add(sib, values)
+            
+            # add the labels for the x axis
+            x_labels = []
+            for triple_length in sorted(self.results[self.results.keys()[0]].keys(), key=int):
+                x_labels.append(triple_length)
+            chart.x_labels = x_labels
 
             # plot the chart
             chart.render_to_file(chart_filename)
