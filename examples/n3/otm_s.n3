@@ -1,0 +1,161 @@
+# Prefixes
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix ns:  <http://www.m3.com/2012/05/m3/ioe-ontology.owl#> .
+##############################################################
+#
+# Vehicles
+#
+##############################################################
+# Vehicle: Fiat 500
+ns:accdba29-c9b6-4910-af8e-4f3563a8d263 rdf:type ns:Vehicle .
+ns:accdba29-c9b6-4910-af8e-4f3563a8d263 ns:hasVehicleIdentifier "Fiat500_accdba29" .
+ns:accdba29-c9b6-4910-af8e-4f3563a8d263 ns:hasManufacturer "Fiat" .
+ns:accdba29-c9b6-4910-af8e-4f3563a8d263 ns:hasModel "500" .
+ns:accdba29-c9b6-4910-af8e-4f3563a8d263 ns:hasName "Fiat 500" .
+##############################################################
+# Vehicle: Fiat Daily
+ns:91552902-cf3a-430a-8ca4-61276268ef9d rdf:type ns:Vehicle .
+ns:91552902-cf3a-430a-8ca4-61276268ef9d ns:hasVehicleIdentifier "FiatDaily_91552902" .
+ns:91552902-cf3a-430a-8ca4-61276268ef9d ns:hasManufacturer "Fiat" .
+ns:91552902-cf3a-430a-8ca4-61276268ef9d ns:hasModel "Daily" . 
+ns:91552902-cf3a-430a-8ca4-61276268ef9d ns:hasName "Fiat Daily" . 
+##############################################################
+# Vehicle: Mission R
+ns:b0d1d4b0-f80a-4d33-9cc9-243daba36379 rdf:type ns:Vehicle .
+ns:b0d1d4b0-f80a-4d33-9cc9-243daba36379 ns:hasVehicleIdentifier "MissionR_b0d1d4b0" .
+ns:b0d1d4b0-f80a-4d33-9cc9-243daba36379 ns:hasManufacturer "Mission" .
+ns:b0d1d4b0-f80a-4d33-9cc9-243daba36379 ns:hasModel "R" .
+ns:b0d1d4b0-f80a-4d33-9cc9-243daba36379 ns:hasName "Mission R" .
+##############################################################
+# Vehicle: Nissan Leaf
+ns:afe8692f-b8aa-43f4-ac35-1847cb50ca18 rdf:type ns:Vehicle .
+ns:afe8692f-b8aa-43f4-ac35-1847cb50ca18 ns:hasVehicleIdentifier "NissanLeaf_afe8692f" .
+ns:afe8692f-b8aa-43f4-ac35-1847cb50ca18 ns:hasManufacturer "Nissan" .
+ns:afe8692f-b8aa-43f4-ac35-1847cb50ca18 ns:hasModel "Leaf" .
+ns:afe8692f-b8aa-43f4-ac35-1847cb50ca18 ns:hasName "Nissan Leaf" .
+##############################################################
+# Vehicle: Tesla Model S
+ns:259a5076-0df8-4192-b22f-ba6566c74da4 rdf:type ns:Vehicle .
+ns:259a5076-0df8-4192-b22f-ba6566c74da4 ns:hasVehicleIdentifier "TeslaModelS_259a5076" .
+ns:259a5076-0df8-4192-b22f-ba6566c74da4 ns:hasManufacturer "Tesla" .
+ns:259a5076-0df8-4192-b22f-ba6566c74da4 ns:hasModel "Model S" .
+ns:259a5076-0df8-4192-b22f-ba6566c74da4 ns:hasName "Tesla Model S" .
+##############################################################
+#
+# People
+#
+##############################################################
+# Person: Tullio Salmon Cinotti
+ns:445195be-eca7-48ab-8ff1-8f45039548fb rdf:type ns:Person .
+ns:445195be-eca7-48ab-8ff1-8f45039548fb ns:hasUserIdentifier "TullioS_445195be" .
+ns:445195be-eca7-48ab-8ff1-8f45039548fb ns:hasName "Tullio Salmon Cinotti" .
+ns:445195be-eca7-48ab-8ff1-8f45039548fb ns:hasVehicle ns:accdba29-c9b6-4910-af8e-4f3563a8d263 .
+ns:445195be-eca7-48ab-8ff1-8f45039548fb ns:hasPassword "TullioSalmonCinotti" .
+##############################################################
+# Person: Luca Roffia
+ns:4e1acc06-d07f-4802-931c-b68b95a547d7 rdf:type ns:Person .
+ns:4e1acc06-d07f-4802-931c-b68b95a547d7 ns:hasUserIdentifier "LucaR_4e1acc06" .
+ns:4e1acc06-d07f-4802-931c-b68b95a547d7 ns:hasName "Luca Roffia" .
+ns:4e1acc06-d07f-4802-931c-b68b95a547d7 ns:hasVehicle ns:91552902-cf3a-430a-8ca4-61276268ef9d .
+ns:4e1acc06-d07f-4802-931c-b68b95a547d7 ns:hasPassword "LucaRoffia" .
+##############################################################
+# Person: Fabio Viola
+ns:ea19421a-e920-46d4-a71f-01ff4c4d372d rdf:type ns:Person .
+ns:ea19421a-e920-46d4-a71f-01ff4c4d372d ns:hasUserIdentifier "FabioV_ea19421a" .
+ns:ea19421a-e920-46d4-a71f-01ff4c4d372d ns:hasName "Fabio Viola" .
+ns:ea19421a-e920-46d4-a71f-01ff4c4d372d ns:hasVehicle ns:b0d1d4b0-f80a-4d33-9cc9-243daba36379 .
+ns:ea19421a-e920-46d4-a71f-01ff4c4d372d ns:hasPassword "FabioViola" .
+##############################################################
+# Person: Alfredo D'Elia
+ns:e0d8201e-b4f3-4aba-bb01-60e2b51e47a4 rdf:type ns:Person .
+ns:e0d8201e-b4f3-4aba-bb01-60e2b51e47a4 ns:hasUserIdentifier "AlfredoDE_e0d8201e" .
+ns:e0d8201e-b4f3-4aba-bb01-60e2b51e47a4 ns:hasName "Alfredo D'Elia" .
+ns:e0d8201e-b4f3-4aba-bb01-60e2b51e47a4 ns:hasVehicle ns:afe8692f-b8aa-43f4-ac35-1847cb50ca18 .
+ns:e0d8201e-b4f3-4aba-bb01-60e2b51e47a4 ns:hasPassword "AlfredoDElia" .
+##############################################################
+# Person: Francesco Antoniazzi
+ns:3d16d7aa-41ee-4760-97e7-5a1ceff60443 rdf:type ns:Person .
+ns:3d16d7aa-41ee-4760-97e7-5a1ceff60443 ns:hasUserIdentifier "FrancescoA_3d16d7aa" .
+ns:3d16d7aa-41ee-4760-97e7-5a1ceff60443 ns:hasName "Francesco Antoniazzi" .
+ns:3d16d7aa-41ee-4760-97e7-5a1ceff60443 ns:hasVehicle ns:259a5076-0df8-4192-b22f-ba6566c74da4 .
+ns:3d16d7aa-41ee-4760-97e7-5a1ceff60443 ns:hasPassword "FrancescoAntoniazzi" .
+##############################################################
+#
+# Ground Stations
+#
+##############################################################
+# GroundStation: SilvaniPietramellara
+ns:e93cadad-a310-4cf2-a007-559ca7b889a2 rdf:type ns:GroundStation .
+ns:e93cadad-a310-4cf2-a007-559ca7b889a2 ns:hasGSIdentifier "SilvaniPietramellara_e93cadad" .
+ns:e93cadad-a310-4cf2-a007-559ca7b889a2 ns:hasName "SilvaniPietramellara" .
+ns:e93cadad-a310-4cf2-a007-559ca7b889a2 ns:hasStartGPSData ns:a1bd1837-b0d1-4373-8711-aa0bb31b9607 .
+ns:e93cadad-a310-4cf2-a007-559ca7b889a2 ns:hasEndGPSData ns:6d5e5b3d-0368-48fa-a8c0-ee8bb93eb006 .
+# GPSData 1
+ns:a1bd1837-b0d1-4373-8711-aa0bb31b9607 rdf:type ns:GPSData .
+ns:a1bd1837-b0d1-4373-8711-aa0bb31b9607 ns:hasLatitude "44.49952" .
+ns:a1bd1837-b0d1-4373-8711-aa0bb31b9607 ns:hasLongitude "11.32708" .
+# GPSData 2
+ns:6d5e5b3d-0368-48fa-a8c0-ee8bb93eb006 rdf:type ns:GPSData .
+ns:6d5e5b3d-0368-48fa-a8c0-ee8bb93eb006 ns:hasLatitude "44.50534" .
+ns:6d5e5b3d-0368-48fa-a8c0-ee8bb93eb006 ns:hasLongitude "11.33941" .
+##############################################################
+# GroundStation: Irnerio
+ns:235d86f8-b5d5-4829-b0cc-388bba526551 rdf:type ns:GroundStation .
+ns:235d86f8-b5d5-4829-b0cc-388bba526551 ns:hasGSIdentifier "Irnerio_235d86f8" .
+ns:235d86f8-b5d5-4829-b0cc-388bba526551 ns:hasName "Irnerio" .
+ns:235d86f8-b5d5-4829-b0cc-388bba526551 ns:hasStartGPSData ns:6e431238-f4c2-4308-bfa9-9fc269878160 .
+ns:235d86f8-b5d5-4829-b0cc-388bba526551 ns:hasEndGPSData ns:9c9d9f3c-62aa-4ac1-8273-1f6da0f24bf7 .
+# GPSData 3
+ns:6e431238-f4c2-4308-bfa9-9fc269878160 rdf:type ns:GPSData .
+ns:6e431238-f4c2-4308-bfa9-9fc269878160 ns:hasLatitude "44.50112" .
+ns:6e431238-f4c2-4308-bfa9-9fc269878160 ns:hasLongitude "11.34464" .
+# GPSData 4
+ns:9c9d9f3c-62aa-4ac1-8273-1f6da0f24bf7 rdf:type ns:GPSData .
+ns:9c9d9f3c-62aa-4ac1-8273-1f6da0f24bf7 ns:hasLatitude "44.49818" .
+ns:9c9d9f3c-62aa-4ac1-8273-1f6da0f24bf7 ns:hasLongitude "11.35609" .
+##############################################################
+# GroundStation: SanDonato1
+ns:df6f2cd4-22cc-478a-99e6-d9b6c835a244 rdf:type ns:GroundStation .
+ns:df6f2cd4-22cc-478a-99e6-d9b6c835a244 ns:hasGSIdentifier "SanDonato1_df6f2cd4" .
+ns:df6f2cd4-22cc-478a-99e6-d9b6c835a244 ns:hasName "SanDonato1" .
+ns:df6f2cd4-22cc-478a-99e6-d9b6c835a244 ns:hasStartGPSData ns:993574d7-34d0-4e18-a0d3-02c4e1cb9674 .
+ns:df6f2cd4-22cc-478a-99e6-d9b6c835a244 ns:hasEndGPSData ns:a5aea480-9f0f-4f94-bab0-36f99158b768.
+# GPSData 5
+ns:993574d7-34d0-4e18-a0d3-02c4e1cb9674 rdf:type ns:GPSData .
+ns:993574d7-34d0-4e18-a0d3-02c4e1cb9674 ns:hasLatitude "44.50391" .
+ns:993574d7-34d0-4e18-a0d3-02c4e1cb9674 ns:hasLongitude "11.36827" .
+# GPSData 6
+ns:a5aea480-9f0f-4f94-bab0-36f99158b768 rdf:type ns:GPSData .
+ns:a5aea480-9f0f-4f94-bab0-36f99158b768 ns:hasLatitude "44.50717" .
+ns:a5aea480-9f0f-4f94-bab0-36f99158b768 ns:hasLongitude "11.37619" .
+##############################################################
+# GroundStation: SanDonato2
+ns:1aac9406-b4e4-42d1-bdd7-ce21e273095a rdf:type ns:GroundStation .
+ns:1aac9406-b4e4-42d1-bdd7-ce21e273095a ns:hasGSIdentifier "SanDonato2_1aac9406" .
+ns:1aac9406-b4e4-42d1-bdd7-ce21e273095a ns:hasName "SanDonato2" .
+ns:1aac9406-b4e4-42d1-bdd7-ce21e273095a ns:hasStartGPSData ns:4baccc40-37a4-4e52-ad54-74778848d0ca .
+ns:1aac9406-b4e4-42d1-bdd7-ce21e273095a ns:hasEndGPSData ns:2988cd7e-13ae-4d00-b878-198d56c2c01e .
+# GPSData 7
+ns:4baccc40-37a4-4e52-ad54-74778848d0ca rdf:type ns:GPSData .
+ns:4baccc40-37a4-4e52-ad54-74778848d0ca ns:hasLatitude "44.50848" .
+ns:4baccc40-37a4-4e52-ad54-74778848d0ca ns:hasLongitude "11.37852" .
+# GPSData 8
+ns:2988cd7e-13ae-4d00-b878-198d56c2c01e rdf:type ns:GPSData .
+ns:2988cd7e-13ae-4d00-b878-198d56c2c01e ns:hasLatitude "44.51584" .
+ns:2988cd7e-13ae-4d00-b878-198d56c2c01e ns:hasLongitude "11.39179" .
+##############################################################
+# GroundStation: Murri
+ns:08ee4f13-ac3e-4836-aec2-05b37b48d0f4 rdf:type ns:GroundStation .
+ns:08ee4f13-ac3e-4836-aec2-05b37b48d0f4 ns:hasGSIdentifier "Murri_08ee4f13" .
+ns:08ee4f13-ac3e-4836-aec2-05b37b48d0f4 ns:hasName "Murri" .
+ns:08ee4f13-ac3e-4836-aec2-05b37b48d0f4 ns:hasStartGPSData ns:b7324bfc-b2e3-4bb0-82ca-edb924f6cee8 .
+ns:08ee4f13-ac3e-4836-aec2-05b37b48d0f4 ns:hasEndGPSData ns:273e76d7-9ea2-4b70-8317-691c9ad1680c .
+# GPSData 9
+ns:b7324bfc-b2e3-4bb0-82ca-edb924f6cee8 rdf:type ns:GPSData .
+ns:b7324bfc-b2e3-4bb0-82ca-edb924f6cee8 ns:hasLatitude "44.48405" .
+ns:b7324bfc-b2e3-4bb0-82ca-edb924f6cee8 ns:hasLongitude "11.35699" .
+# GPSData 10
+ns:273e76d7-9ea2-4b70-8317-691c9ad1680c rdf:type ns:GPSData .
+ns:273e76d7-9ea2-4b70-8317-691c9ad1680c ns:hasLatitude "44.47909" .
+ns:273e76d7-9ea2-4b70-8317-691c9ad1680c ns:hasLongitude "11.36393" .
+##############################################################

@@ -1,0 +1,395 @@
+# Prefixes
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix ns:  <http://www.m3.com/2012/05/m3/ioe-ontology.owl#> .
+##############################################################
+#
+# Vehicles
+#
+##############################################################
+# Vehicle: Nissan Leaf
+ns:96a591ef-b1d8-4210-b924-52244af68750 rdf:type ns:Vehicle .
+ns:96a591ef-b1d8-4210-b924-52244af68750 ns:hasVehicleIdentifier "NissanLeaf_96a591ef" .
+ns:96a591ef-b1d8-4210-b924-52244af68750 ns:hasManufacturer "Nissan" .
+ns:96a591ef-b1d8-4210-b924-52244af68750 ns:hasModel "Leaf" .
+ns:96a591ef-b1d8-4210-b924-52244af68750 ns:hasName "Nissan Leaf" .
+##############################################################
+# Vehicle: Nissan Leaf
+ns:fcc19b03-5c58-4cab-b48a-c4c380ba0bda rdf:type ns:Vehicle .
+ns:fcc19b03-5c58-4cab-b48a-c4c380ba0bda ns:hasVehicleIdentifier "NissanLeaf_fcc19b03" .
+ns:fcc19b03-5c58-4cab-b48a-c4c380ba0bda ns:hasManufacturer "Nissan" .
+ns:fcc19b03-5c58-4cab-b48a-c4c380ba0bda ns:hasModel "Leaf" .
+ns:fcc19b03-5c58-4cab-b48a-c4c380ba0bda ns:hasName "Nissan Leaf" .
+##############################################################
+# Vehicle: Toyota Prius
+ns:5cfa73d6-34a9-420b-ae6b-b10712c273d6 rdf:type ns:Vehicle .
+ns:5cfa73d6-34a9-420b-ae6b-b10712c273d6 ns:hasVehicleIdentifier "ToyotaPrius_5cfa73d6" .
+ns:5cfa73d6-34a9-420b-ae6b-b10712c273d6 ns:hasManufacturer "Toyota" .
+ns:5cfa73d6-34a9-420b-ae6b-b10712c273d6 ns:hasModel "Prius" .
+ns:5cfa73d6-34a9-420b-ae6b-b10712c273d6 ns:hasName "Toyota Prius" .
+##############################################################
+# Vehicle: Toyota Prius
+ns:bbd7cb27-f725-4e11-a2da-d866d1efdc1a rdf:type ns:Vehicle .
+ns:bbd7cb27-f725-4e11-a2da-d866d1efdc1a ns:hasVehicleIdentifier "ToyotaPrius_bbd7cb27" .
+ns:bbd7cb27-f725-4e11-a2da-d866d1efdc1a ns:hasManufacturer "Toyota" .
+ns:bbd7cb27-f725-4e11-a2da-d866d1efdc1a ns:hasModel "Prius" .
+ns:bbd7cb27-f725-4e11-a2da-d866d1efdc1a ns:hasName "Toyota Prius" .
+##############################################################
+# Vehicle: Toyota Prius
+ns:01f128dd-1fca-4b5b-b422-ff92116be365 rdf:type ns:Vehicle .
+ns:01f128dd-1fca-4b5b-b422-ff92116be365 ns:hasVehicleIdentifier "ToyotaPrius_01f128dd" .
+ns:01f128dd-1fca-4b5b-b422-ff92116be365 ns:hasManufacturer "Toyota" .
+ns:01f128dd-1fca-4b5b-b422-ff92116be365 ns:hasModel "Prius" .
+ns:01f128dd-1fca-4b5b-b422-ff92116be365 ns:hasName "Toyota Prius" .
+##############################################################
+# Vehicle: Fiat 500
+ns:b9735872-b59c-43fc-bac0-6adef92f2a8c rdf:type ns:Vehicle .
+ns:b9735872-b59c-43fc-bac0-6adef92f2a8c ns:hasVehicleIdentifier "Fiat500_b9735872" .
+ns:b9735872-b59c-43fc-bac0-6adef92f2a8c ns:hasManufacturer "Fiat" .
+ns:b9735872-b59c-43fc-bac0-6adef92f2a8c ns:hasModel "500" .
+ns:b9735872-b59c-43fc-bac0-6adef92f2a8c ns:hasName "Fiat 500" .
+##############################################################
+# Vehicle: Fiat Daily
+ns:c5d6124b-8bc9-4ad2-8a5f-4ca07343caea rdf:type ns:Vehicle .
+ns:c5d6124b-8bc9-4ad2-8a5f-4ca07343caea ns:hasVehicleIdentifier "FiatDaily_c5d6124b" .
+ns:c5d6124b-8bc9-4ad2-8a5f-4ca07343caea ns:hasManufacturer "Fiat" .
+ns:c5d6124b-8bc9-4ad2-8a5f-4ca07343caea ns:hasModel "Daily" .
+ns:c5d6124b-8bc9-4ad2-8a5f-4ca07343caea ns:hasName "Fiat Daily" .
+##############################################################
+# Vehicle: Mission R
+ns:2cf6da50-b6f2-48c5-8df6-31196d38c9e5 rdf:type ns:Vehicle .
+ns:2cf6da50-b6f2-48c5-8df6-31196d38c9e5 ns:hasVehicleIdentifier "MissionR_2cf6da50" .
+ns:2cf6da50-b6f2-48c5-8df6-31196d38c9e5 ns:hasManufacturer "Mission" .
+ns:2cf6da50-b6f2-48c5-8df6-31196d38c9e5 ns:hasModel "R" .
+ns:2cf6da50-b6f2-48c5-8df6-31196d38c9e5 ns:hasName "Mission R" .
+##############################################################
+# Vehicle: Nissan Leaf
+ns:4b11ef6b-b5db-4f11-a4f1-7d14b25f5b84 rdf:type ns:Vehicle .
+ns:4b11ef6b-b5db-4f11-a4f1-7d14b25f5b84 ns:hasVehicleIdentifier "NissanLeaf_4b11ef6b" .
+ns:4b11ef6b-b5db-4f11-a4f1-7d14b25f5b84 ns:hasManufacturer "Nissan" .
+ns:4b11ef6b-b5db-4f11-a4f1-7d14b25f5b84 ns:hasModel "Leaf" .
+ns:4b11ef6b-b5db-4f11-a4f1-7d14b25f5b84 ns:hasName "Nissan Leaf" .
+##############################################################
+# Vehicle: Tesla Model S
+ns:1ac14b0c-671f-440f-bcf9-cd87b8e5ecd7 rdf:type ns:Vehicle .
+ns:1ac14b0c-671f-440f-bcf9-cd87b8e5ecd7 ns:hasVehicleIdentifier "TeslaModelS_1ac14b0c" .
+ns:1ac14b0c-671f-440f-bcf9-cd87b8e5ecd7 ns:hasManufacturer "Tesla" .
+ns:1ac14b0c-671f-440f-bcf9-cd87b8e5ecd7 ns:hasModel "Model S" .
+ns:1ac14b0c-671f-440f-bcf9-cd87b8e5ecd7 ns:hasName "Tesla Model S" .
+##############################################################
+#
+# Persons
+#
+##############################################################
+# Person: Luciano Bononi
+ns:5b9eb900-d507-4a77-a63c-637e80c41a17 rdf:type ns:Person .
+ns:5b9eb900-d507-4a77-a63c-637e80c41a17 ns:hasUserIdentifier "LucianoB_5b9eb900" .
+ns:5b9eb900-d507-4a77-a63c-637e80c41a17 ns:hasName "Luciano Bononi" .
+ns:5b9eb900-d507-4a77-a63c-637e80c41a17 ns:hasPassword "LucianoBononi" .
+ns:5b9eb900-d507-4a77-a63c-637e80c41a17 ns:hasVehicle ns:fcc19b03-5c58-4cab-b48a-c4c380ba0bda .
+##############################################################
+# Person: Simone Rondelli
+ns:207fdbad-1bc6-4d56-9bdc-5a2d29c35b75 rdf:type ns:Person .
+ns:207fdbad-1bc6-4d56-9bdc-5a2d29c35b75 ns:hasUserIdentifier "SimoneR_207fdbad" .
+ns:207fdbad-1bc6-4d56-9bdc-5a2d29c35b75 ns:hasName "Simone Rondelli" .
+ns:207fdbad-1bc6-4d56-9bdc-5a2d29c35b75 ns:hasPassword "SimoneRondelli" .
+ns:207fdbad-1bc6-4d56-9bdc-5a2d29c35b75 ns:hasVehicle ns:96a591ef-b1d8-4210-b924-52244af68750 .
+##############################################################
+# Person: Alberto Borghetti
+ns:33ab29eb-003a-435c-b141-4db9c5d45bae rdf:type ns:Person .
+ns:33ab29eb-003a-435c-b141-4db9c5d45bae ns:hasUserIdentifier "AlbertoB_33ab29eb" .
+ns:33ab29eb-003a-435c-b141-4db9c5d45bae ns:hasName "Alberto Borghetti" .
+ns:33ab29eb-003a-435c-b141-4db9c5d45bae ns:hasPassword "AlbertoBorghetti" .
+ns:33ab29eb-003a-435c-b141-4db9c5d45bae ns:hasVehicle ns:5cfa73d6-34a9-420b-ae6b-b10712c273d6 .
+##############################################################
+# Person: Riccardo Venanzi
+ns:33e46bc2-9785-449e-8916-2a122f3d4ca4 rdf:type ns:Person .
+ns:33e46bc2-9785-449e-8916-2a122f3d4ca4 ns:hasUserIdentifier "RiccardoV_33e46bc2" .
+ns:33e46bc2-9785-449e-8916-2a122f3d4ca4 ns:hasName "Riccardo Venanzi" .
+ns:33e46bc2-9785-449e-8916-2a122f3d4ca4 ns:hasPassword "RiccardoVenanzi" .
+ns:33e46bc2-9785-449e-8916-2a122f3d4ca4 ns:hasVehicle ns:bbd7cb27-f725-4e11-a2da-d866d1efdc1a .
+##############################################################
+# Person: Daniele Tarchi
+ns:1afa5bd0-55dd-463c-8d8f-f4e708d5fc10 rdf:type ns:Person .
+ns:1afa5bd0-55dd-463c-8d8f-f4e708d5fc10 ns:hasUserIdentifier "DanieleT_1afa5bd0" .
+ns:1afa5bd0-55dd-463c-8d8f-f4e708d5fc10 ns:hasName "Daniele Tarchi" .
+ns:1afa5bd0-55dd-463c-8d8f-f4e708d5fc10 ns:hasPassword "DanieleTarchi" .
+ns:1afa5bd0-55dd-463c-8d8f-f4e708d5fc10 ns:hasVehicle ns:01f128dd-1fca-4b5b-b422-ff92116be365 .
+##############################################################
+# Person: Federico Montori
+ns:df3281eb-be4f-41c8-859e-e4470dd3c47f rdf:type ns:Person .
+ns:df3281eb-be4f-41c8-859e-e4470dd3c47f ns:hasUserIdentifier "FedericoM_df3281eb" .
+ns:df3281eb-be4f-41c8-859e-e4470dd3c47f ns:hasName "Federico Montori" .
+ns:df3281eb-be4f-41c8-859e-e4470dd3c47f ns:hasPassword "FedericoMontori" .
+ns:df3281eb-be4f-41c8-859e-e4470dd3c47f ns:hasVehicle ns:b9735872-b59c-43fc-bac0-6adef92f2a8c .
+##############################################################
+# Person: Luca Bedogni
+ns:94043639-a5cd-4f6c-8afa-546cff83b7c0 rdf:type ns:Person .
+ns:94043639-a5cd-4f6c-8afa-546cff83b7c0 ns:hasUserIdentifier "LucaB_94043639" .
+ns:94043639-a5cd-4f6c-8afa-546cff83b7c0 ns:hasName "Luca Bedogni" .
+ns:94043639-a5cd-4f6c-8afa-546cff83b7c0 ns:hasPassword "LucaBedogni" .
+ns:94043639-a5cd-4f6c-8afa-546cff83b7c0 ns:hasVehicle ns:c5d6124b-8bc9-4ad2-8a5f-4ca07343caea .
+##############################################################
+# Person: Marco Di Felice
+ns:4c341c0d-dc69-4b5c-9c46-07682da68051 rdf:type ns:Person .
+ns:4c341c0d-dc69-4b5c-9c46-07682da68051 ns:hasUserIdentifier "MarcoDF_4c341c0d" .
+ns:4c341c0d-dc69-4b5c-9c46-07682da68051 ns:hasName "Marco Di Felice" .
+ns:4c341c0d-dc69-4b5c-9c46-07682da68051 ns:hasPassword "MarcoDiFelice" .
+ns:4c341c0d-dc69-4b5c-9c46-07682da68051 ns:hasVehicle ns:2cf6da50-b6f2-48c5-8df6-31196d38c9e5 .
+##############################################################
+# Person: Paolo Azzoni
+ns:0ec53f33-ca22-421f-a871-ef2f1c6c4bde rdf:type ns:Person .
+ns:0ec53f33-ca22-421f-a871-ef2f1c6c4bde ns:hasUserIdentifier "PaoloA_0ec53f33" .
+ns:0ec53f33-ca22-421f-a871-ef2f1c6c4bde ns:hasName "Paolo Azzoni" .
+ns:0ec53f33-ca22-421f-a871-ef2f1c6c4bde ns:hasPassword "PaoloAzzoni" .
+ns:0ec53f33-ca22-421f-a871-ef2f1c6c4bde ns:hasVehicle ns:4b11ef6b-b5db-4f11-a4f1-7d14b25f5b84 .
+##############################################################
+# Person: Michele Ornato
+ns:e4a0be27-20e1-4350-be13-1cb496381727 rdf:type ns:Person .
+ns:e4a0be27-20e1-4350-be13-1cb496381727 ns:hasUserIdentifier "MicheleO_e4a0be27" .
+ns:e4a0be27-20e1-4350-be13-1cb496381727 ns:hasName "Michele Ornato" .
+ns:e4a0be27-20e1-4350-be13-1cb496381727 ns:hasPassword "MicheleOrnato" .
+ns:e4a0be27-20e1-4350-be13-1cb496381727 ns:hasVehicle ns:1ac14b0c-671f-440f-bcf9-cd87b8e5ecd7 .
+##############################################################
+#
+# Ground Stations
+#
+##############################################################
+# GroundStation: Emilia Ponente
+ns:c625f1a3-5bf8-4051-8cbd-b740d32a0f6c rdf:type ns:GroundStation .
+ns:c625f1a3-5bf8-4051-8cbd-b740d32a0f6c ns:hasGSIdentifier "EmiliaPonente_c625f1a3" .
+ns:c625f1a3-5bf8-4051-8cbd-b740d32a0f6c ns:hasName "EmiliaPonente" .
+ns:c625f1a3-5bf8-4051-8cbd-b740d32a0f6c ns:hasStartGPSData ns:678d2144-bff5-4433-842e-48d1a7f1dd1d .
+ns:c625f1a3-5bf8-4051-8cbd-b740d32a0f6c ns:hasEndGPSData ns:eec1eef0-e1ed-489c-885e-a4d96abc4cf7 .
+# GPSData 1
+ns:678d2144-bff5-4433-842e-48d1a7f1dd1d rdf:type ns:GPSData .
+ns:678d2144-bff5-4433-842e-48d1a7f1dd1d ns:hasLatitude "44.50212" .
+ns:678d2144-bff5-4433-842e-48d1a7f1dd1d ns:hasLongitude "11.31903" .
+# GPSData 2
+ns:eec1eef0-e1ed-489c-885e-a4d96abc4cf7 rdf:type ns:GPSData .
+ns:eec1eef0-e1ed-489c-885e-a4d96abc4cf7 ns:hasLatitude "44.50882" .
+ns:eec1eef0-e1ed-489c-885e-a4d96abc4cf7 ns:hasLongitude "11.29669" .
+##############################################################
+# GroundStation: Saffi
+ns:06ecce32-dc24-4b1c-88c4-4eb4d52e43ef rdf:type ns:GroundStation .
+ns:06ecce32-dc24-4b1c-88c4-4eb4d52e43ef ns:hasGSIdentifier "Saffi_06ecce32" .
+ns:06ecce32-dc24-4b1c-88c4-4eb4d52e43ef ns:hasName "Saffi" .
+ns:06ecce32-dc24-4b1c-88c4-4eb4d52e43ef	ns:hasStartGPSData ns:d5b38bac-c380-42ae-b963-9b0355897623 .
+ns:06ecce32-dc24-4b1c-88c4-4eb4d52e43ef ns:hasEndGPSData ns:7e20bfc3-012d-4c42-9b7b-726843126482 .
+# GPSData 3
+ns:d5b38bac-c380-42ae-b963-9b0355897623 rdf:type ns:GPSData .
+ns:d5b38bac-c380-42ae-b963-9b0355897623 ns:hasLatitude "44.49953" .
+ns:d5b38bac-c380-42ae-b963-9b0355897623 ns:hasLongitude "11.32674" .
+# GPSData 4
+ns:7e20bfc3-012d-4c42-9b7b-726843126482 rdf:type ns:GPSData .
+ns:7e20bfc3-012d-4c42-9b7b-726843126482 ns:hasLatitude "44.50204" .
+ns:7e20bfc3-012d-4c42-9b7b-726843126482 ns:hasLongitude "11.31941" .
+##############################################################
+# GroundStation: SanFelice
+ns:bda8a77c-f7e5-4a46-abbd-ea0370ee51d0 rdf:type ns:GroundStation .
+ns:bda8a77c-f7e5-4a46-abbd-ea0370ee51d0 ns:hasGSIdentifier "SanFelice_bda8a77c" .
+ns:bda8a77c-f7e5-4a46-abbd-ea0370ee51d0 ns:hasName "SanFelice" .
+ns:bda8a77c-f7e5-4a46-abbd-ea0370ee51d0 ns:hasStartGPSData ns:ac092fd6-9eeb-473c-8551-5096a83b059c .
+ns:bda8a77c-f7e5-4a46-abbd-ea0370ee51d0 ns:hasEndGPSData ns:e19214b0-dc39-4926-a981-966f61edcb59 .
+# GPSData 5
+ns:ac092fd6-9eeb-473c-8551-5096a83b059c rdf:type ns:GPSData .
+ns:ac092fd6-9eeb-473c-8551-5096a83b059c ns:hasLatitude "44.49902" .
+ns:ac092fd6-9eeb-473c-8551-5096a83b059c ns:hasLongitude "11.32780" .
+# GPSData 6
+ns:e19214b0-dc39-4926-a981-966f61edcb59 rdf:type ns:GPSData .
+ns:e19214b0-dc39-4926-a981-966f61edcb59 ns:hasLatitude "44.49590" .
+ns:e19214b0-dc39-4926-a981-966f61edcb59 ns:hasLongitude "11.33686" .
+##############################################################
+# GroundStation: BassiRizzoli
+ns:e12369a9-2a6a-46ec-95f7-f113cf7e883a rdf:type ns:GroundStation .
+ns:e12369a9-2a6a-46ec-95f7-f113cf7e883a ns:hasGSIdentifier "BassiRizzoli_e12369a9" .
+ns:e12369a9-2a6a-46ec-95f7-f113cf7e883a ns:hasName "BassiRizzoli" .
+ns:e12369a9-2a6a-46ec-95f7-f113cf7e883a ns:hasStartGPSData ns:0c09bf24-6573-4c50-b00e-7ba8210779c6 .
+ns:e12369a9-2a6a-46ec-95f7-f113cf7e883a ns:hasEndGPSData ns:0e9ea899-3353-4454-bcb4-0e52e6a9b7d3 .
+# GPSData 7
+ns:0c09bf24-6573-4c50-b00e-7ba8210779c6 rdf:type ns:GPSData .
+ns:0c09bf24-6573-4c50-b00e-7ba8210779c6 ns:hasLatitude "44.49548" .
+ns:0c09bf24-6573-4c50-b00e-7ba8210779c6 ns:hasLongitude "11.33790" .
+# GPSData 8
+ns:0e9ea899-3353-4454-bcb4-0e52e6a9b7d3 rdf:type ns:GPSData .
+ns:0e9ea899-3353-4454-bcb4-0e52e6a9b7d3 ns:hasLatitude "44.49418" .
+ns:0e9ea899-3353-4454-bcb4-0e52e6a9b7d3 ns:hasLongitude "11.34611" .
+##############################################################
+# GroundStation: StradaMaggiore
+ns:2da444d4-4a24-4f21-b406-b037adff4a79 rdf:type ns:GroundStation .
+ns:2da444d4-4a24-4f21-b406-b037adff4a79 ns:hasGSIdentifier "StradaMaggiore_2da444d4" .
+ns:2da444d4-4a24-4f21-b406-b037adff4a79 ns:hasName "StradaMagiore" .
+ns:2da444d4-4a24-4f21-b406-b037adff4a79 ns:hasStartGPSData ns:208eb67b-b57c-44bf-95e2-4facb7ac658e .
+ns:2da444d4-4a24-4f21-b406-b037adff4a79 ns:hasEndGPSData ns:a25fee0e-0eeb-4071-8fae-7b8c623ecc03 .
+# GPSData 9 
+ns:208eb67b-b57c-44bf-95e2-4facb7ac658e rdf:type ns:GPSData .
+ns:208eb67b-b57c-44bf-95e2-4facb7ac658e ns:hasLatitude "44.49246" .
+ns:208eb67b-b57c-44bf-95e2-4facb7ac658e ns:hasLongitude "11.35124" .
+# GPSData 10
+ns:a25fee0e-0eeb-4071-8fae-7b8c623ecc03 rdf:type ns:GPSData .
+ns:a25fee0e-0eeb-4071-8fae-7b8c623ecc03 ns:hasLatitude "44.48997" .
+ns:a25fee0e-0eeb-4071-8fae-7b8c623ecc03 ns:hasLongitude "11.35729" .
+##############################################################
+# GroundStation: Mazzini
+ns:c627d663-3a8f-40db-9e5d-89d55a083263 rdf:type ns:GroundStation .
+ns:c627d663-3a8f-40db-9e5d-89d55a083263 ns:hasGSIdentifier "Mazzini_c627d663" .
+ns:c627d663-3a8f-40db-9e5d-89d55a083263 ns:hasName "Mazzini" .
+ns:c627d663-3a8f-40db-9e5d-89d55a083263 ns:hasStartGPSData ns:95f02bee-c206-4d57-a6b5-c192afd1eb9f .
+ns:c627d663-3a8f-40db-9e5d-89d55a083263 ns:hasEndGPSData ns:97f4611a-07dd-4850-b466-194f573f2653 .
+# GPSData 11
+ns:95f02bee-c206-4d57-a6b5-c192afd1eb9f rdf:type ns:GPSData .
+ns:95f02bee-c206-4d57-a6b5-c192afd1eb9f ns:hasLatitude "44.48991" .
+ns:95f02bee-c206-4d57-a6b5-c192afd1eb9f ns:hasLongitude "11.35816" .
+# GPSData 12
+ns:97f4611a-07dd-4850-b466-194f573f2653 rdf:type ns:GPSData .
+ns:97f4611a-07dd-4850-b466-194f573f2653 ns:hasLatitude "44.48381" .
+ns:97f4611a-07dd-4850-b466-194f573f2653 ns:hasLongitude "11.37311" .
+##############################################################
+# GroundStation: EmiliaLevante
+ns:5a85d32e-f4c4-4123-891b-42182268756d rdf:type ns:GroundStation .
+ns:5a85d32e-f4c4-4123-891b-42182268756d ns:hasGSIdentifier "EmiliaLevante_5a85d32e" .
+ns:5a85d32e-f4c4-4123-891b-42182268756d ns:hasName "EmiliaLevante" .
+ns:5a85d32e-f4c4-4123-891b-42182268756d ns:hasStartGPSData ns:5d1275cc-45f5-4ac7-925d-c6d25ecb2608 .
+ns:5a85d32e-f4c4-4123-891b-42182268756d ns:hasEndGPSData ns:d1eba8af-a385-4e0b-a1dd-80dc3c3746da .
+# GPSData 13 
+ns:5d1275cc-45f5-4ac7-925d-c6d25ecb2608 rdf:type ns:GPSData .
+ns:5d1275cc-45f5-4ac7-925d-c6d25ecb2608 ns:hasLatitude "44.48403" .
+ns:5d1275cc-45f5-4ac7-925d-c6d25ecb2608 ns:hasLongitude "11.37328" .
+# GPSData 14
+ns:d1eba8af-a385-4e0b-a1dd-80dc3c3746da rdf:type ns:GPSData .
+ns:d1eba8af-a385-4e0b-a1dd-80dc3c3746da ns:hasLatitude "44.47752" .
+ns:d1eba8af-a385-4e0b-a1dd-80dc3c3746da ns:hasLongitude "11.39020" .
+##############################################################
+# GroundStation: Aldini
+ns:bce09a70-15ec-49fd-93c9-0111733a56b8 rdf:type ns:GroundStation .
+ns:bce09a70-15ec-49fd-93c9-0111733a56b8 ns:hasGSIdentifier "Aldini_bce09a70" .
+ns:bce09a70-15ec-49fd-93c9-0111733a56b8 ns:hasName "Aldini" .
+ns:bce09a70-15ec-49fd-93c9-0111733a56b8 ns:hasStartGPSData ns:3905da09-b596-42eb-976f-d75856c41f4c .
+ns:bce09a70-15ec-49fd-93c9-0111733a56b8 ns:hasEndGPSData ns:cb768afc-9079-4a6c-860d-0763319f6b28 .
+# GPSData 15
+ns:3905da09-b596-42eb-976f-d75856c41f4c rdf:type ns:GPSData .
+ns:3905da09-b596-42eb-976f-d75856c41f4c ns:hasLatitude "44.48982" .
+ns:3905da09-b596-42eb-976f-d75856c41f4c ns:hasLongitude "11.33003" .
+# GPSData 16
+ns:cb768afc-9079-4a6c-860d-0763319f6b28 rdf:type ns:GPSData .
+ns:cb768afc-9079-4a6c-860d-0763319f6b28 ns:hasLatitude "44.48669" .
+ns:cb768afc-9079-4a6c-860d-0763319f6b28 ns:hasLongitude "11.33833" .
+##############################################################
+# GroundStation: PanzacchiGozzadini
+ns:0ebdcdf0-915b-4b39-af0a-fe079d6fe204 rdf:type ns:GroundStation .
+ns:0ebdcdf0-915b-4b39-af0a-fe079d6fe204 ns:hasGSIdentifier "PanzacchiGozzadini_0ebdcdf0" .
+ns:0ebdcdf0-915b-4b39-af0a-fe079d6fe204 ns:hasName "PanzacchiGozzadini" .
+ns:0ebdcdf0-915b-4b39-af0a-fe079d6fe204 ns:hasStartGPSData ns:2bbd9b8f-e985-4649-a9e8-f180b14db176 .
+ns:0ebdcdf0-915b-4b39-af0a-fe079d6fe204 ns:hasEndGPSData ns:cfcfdd49-99fe-4ba1-8031-0341eaa5db7f .
+# GPSData 17
+ns:2bbd9b8f-e985-4649-a9e8-f180b14db176 rdf:type ns:GPSData .
+ns:2bbd9b8f-e985-4649-a9e8-f180b14db176 ns:hasLatitude "44.48635" .
+ns:2bbd9b8f-e985-4649-a9e8-f180b14db176 ns:hasLongitude "11.34093" .
+# GPSData 18
+ns:cfcfdd49-99fe-4ba1-8031-0341eaa5db7f rdf:type ns:GPSData .
+ns:cfcfdd49-99fe-4ba1-8031-0341eaa5db7f ns:hasLatitude "44.48474" .
+ns:cfcfdd49-99fe-4ba1-8031-0341eaa5db7f ns:hasLongitude "11.35325" .
+##############################################################
+# GroundStation: CarducciFilopanti
+ns:901070bd-0ae6-43df-bf4c-ddd13f646cbf rdf:type ns:GroundStation .
+ns:901070bd-0ae6-43df-bf4c-ddd13f646cbf ns:hasGSIdentifier "CarducciFilopanti_901070bd" .
+ns:901070bd-0ae6-43df-bf4c-ddd13f646cbf ns:hasName "CarducciFilopanti" .
+ns:901070bd-0ae6-43df-bf4c-ddd13f646cbf ns:hasStartGPSData ns:02e63b23-829d-49d5-a466-b36792faf622 .
+ns:901070bd-0ae6-43df-bf4c-ddd13f646cbf ns:hasEndGPSData ns:284ebe2d-41eb-4bc9-b26d-ab55b0ad7922 .
+# GPSData 19
+ns:02e63b23-829d-49d5-a466-b36792faf622 rdf:type ns:GPSData .
+ns:02e63b23-829d-49d5-a466-b36792faf622 ns:hasLatitude "44.48652" .
+ns:02e63b23-829d-49d5-a466-b36792faf622 ns:hasLongitude "11.35811" .
+# GPSData 20
+ns:284ebe2d-41eb-4bc9-b26d-ab55b0ad7922 rdf:type ns:GPSData .
+ns:284ebe2d-41eb-4bc9-b26d-ab55b0ad7922 ns:hasLatitude "44.49798" .
+ns:284ebe2d-41eb-4bc9-b26d-ab55b0ad7922 ns:hasLongitude "11.35688" .
+##############################################################
+# GroundStation: Susa
+ns:2835a529-cf31-445a-9bfc-769d3487a62f rdf:type ns:GroundStation .
+ns:2835a529-cf31-445a-9bfc-769d3487a62f ns:hasGSIdentifier "Susa_901070bd" .
+ns:2835a529-cf31-445a-9bfc-769d3487a62f ns:hasName "Susa" .
+ns:2835a529-cf31-445a-9bfc-769d3487a62f ns:hasStartGPSData ns:f3696fcb-0e4d-462a-a1d4-fe5ee9ced0bd .
+ns:2835a529-cf31-445a-9bfc-769d3487a62f ns:hasEndGPSData ns:6dbcd43d-621c-4515-8684-3cc0323a3bdb .
+# GPSData 19
+ns:f3696fcb-0e4d-462a-a1d4-fe5ee9ced0bd rdf:type ns:GPSData .
+ns:f3696fcb-0e4d-462a-a1d4-fe5ee9ced0bd ns:hasLatitude "45.135647" .
+ns:f3696fcb-0e4d-462a-a1d4-fe5ee9ced0bd ns:hasLongitude "7.092475" .
+# GPSData 20
+ns:6dbcd43d-621c-4515-8684-3cc0323a3bdb rdf:type ns:GPSData .
+ns:6dbcd43d-621c-4515-8684-3cc0323a3bdb ns:hasLatitude "45.135348" .
+ns:6dbcd43d-621c-4515-8684-3cc0323a3bdb ns:hasLongitude "7.093068" .
+##############################################################
+#
+# Reservations
+#
+##############################################################
+# Reservation 1
+ns:348050ff-a98b-407c-a9dd-5c33a94d907a rdf:type ns:Reservation .
+ns:348050ff-a98b-407c-a9dd-5c33a94d907a ns:reservedByVehicle ns:4b11ef6b-b5db-4f11-a4f1-7d14b25f5b84 .
+ns:348050ff-a98b-407c-a9dd-5c33a94d907a ns:hasUser ns:0ec53f33-ca22-421f-a871-ef2f1c6c4bde .
+ns:348050ff-a98b-407c-a9dd-5c33a94d907a ns:hasGS ns:901070bd-0ae6-43df-bf4c-ddd13f646cbf .
+ns:348050ff-a98b-407c-a9dd-5c33a94d907a ns:hasReservationIdentifier "Reserv_348050ff" .
+##############################################################
+# Reservation 2
+ns:6fd1e79b-a5d6-42df-9883-7d50c341dec5 rdf:type ns:Reservation .
+ns:6fd1e79b-a5d6-42df-9883-7d50c341dec5 ns:reservedByVehicle ns:4b11ef6b-b5db-4f11-a4f1-7d14b25f5b84 .
+ns:6fd1e79b-a5d6-42df-9883-7d50c341dec5 ns:hasUser ns:0ec53f33-ca22-421f-a871-ef2f1c6c4bde .
+ns:6fd1e79b-a5d6-42df-9883-7d50c341dec5 ns:hasGS ns:e12369a9-2a6a-46ec-95f7-f113cf7e883a .
+ns:6fd1e79b-a5d6-42df-9883-7d50c341dec5 ns:hasReservationIdentifier "Reserv_6fd1e79b" .
+##############################################################
+# Reservation 3
+ns:4c176824-aca9-440e-adf3-5c9c6175674a rdf:type ns:Reservation .
+ns:4c176824-aca9-440e-adf3-5c9c6175674a ns:reservedByVehicle ns:b9735872-b59c-43fc-bac0-6adef92f2a8c .
+ns:4c176824-aca9-440e-adf3-5c9c6175674a ns:hasUser ns:df3281eb-be4f-41c8-859e-e4470dd3c47f .
+ns:4c176824-aca9-440e-adf3-5c9c6175674a ns:hasGS ns:e12369a9-2a6a-46ec-95f7-f113cf7e883a .
+ns:4c176824-aca9-440e-adf3-5c9c6175674a ns:hasReservationIdentifier "Reserv_4c176824" .
+##############################################################
+# Reservation 4
+ns:cbb9e300-46a4-4bbc-84b4-1403afe62a40 rdf:type ns:Reservation .
+ns:cbb9e300-46a4-4bbc-84b4-1403afe62a40 ns:reservedByVehicle ns:b9735872-b59c-43fc-bac0-6adef92f2a8c .
+ns:cbb9e300-46a4-4bbc-84b4-1403afe62a40 ns:hasUser ns:df3281eb-be4f-41c8-859e-e4470dd3c47f .
+ns:cbb9e300-46a4-4bbc-84b4-1403afe62a40 ns:hasGS ns:c625f1a3-5bf8-4051-8cbd-b740d32a0f6c .
+ns:cbb9e300-46a4-4bbc-84b4-1403afe62a40 ns:hasReservationIdentifier "Reserv_cbb9e300" .
+##############################################################
+# Reservation 5
+ns:e2913ef2-ecac-4338-8885-aa1611090ef1 rdf:type ns:Reservation .
+ns:e2913ef2-ecac-4338-8885-aa1611090ef1 ns:reservedByVehicle ns:b9735872-b59c-43fc-bac0-6adef92f2a8c .
+ns:e2913ef2-ecac-4338-8885-aa1611090ef1 ns:hasUser ns:df3281eb-be4f-41c8-859e-e4470dd3c47f .
+ns:e2913ef2-ecac-4338-8885-aa1611090ef1 ns:hasGS ns:b9735872-b59c-43fc-bac0-6adef92f2a8c .
+ns:e2913ef2-ecac-4338-8885-aa1611090ef1 ns:hasReservationIdentifier "Reserv_e2913ef2" .
+##############################################################
+# Reservation 6
+ns:22dfce4d-6972-4f79-9f03-91bb16d29c18 rdf:type ns:Reservation .
+ns:22dfce4d-6972-4f79-9f03-91bb16d29c18 ns:reservedByVehicle ns:5cfa73d6-34a9-420b-ae6b-b10712c273d6 .
+ns:22dfce4d-6972-4f79-9f03-91bb16d29c18 ns:hasUser ns:33ab29eb-003a-435c-b141-4db9c5d45bae .
+ns:22dfce4d-6972-4f79-9f03-91bb16d29c18 ns:hasGS ns:901070bd-0ae6-43df-bf4c-ddd13f646cbf .
+ns:22dfce4d-6972-4f79-9f03-91bb16d29c18 ns:hasReservationIdentifier "Reserv_22dfce4d" .
+##############################################################
+# Reservation 7
+ns:177a943f-c66c-4a87-8a34-5c2721917810 rdf:type ns:Reservation .
+ns:177a943f-c66c-4a87-8a34-5c2721917810 ns:reservedByVehicle ns:5cfa73d6-34a9-420b-ae6b-b10712c273d6 .
+ns:177a943f-c66c-4a87-8a34-5c2721917810 ns:hasUser ns:33ab29eb-003a-435c-b141-4db9c5d45bae .
+ns:177a943f-c66c-4a87-8a34-5c2721917810 ns:hasGS ns:c625f1a3-5bf8-4051-8cbd-b740d32a0f6c .
+ns:177a943f-c66c-4a87-8a34-5c2721917810 ns:hasReservationIdentifier "Reserv_177a943f" .
+##############################################################
+# Reservation 8
+ns:09a2a804-3249-41a1-a980-0fc22ba8d516 rdf:type ns:Reservation .
+ns:09a2a804-3249-41a1-a980-0fc22ba8d516 ns:reservedByVehicle ns:5cfa73d6-34a9-420b-ae6b-b10712c273d6 .
+ns:09a2a804-3249-41a1-a980-0fc22ba8d516 ns:hasUser ns:33ab29eb-003a-435c-b141-4db9c5d45bae .
+ns:09a2a804-3249-41a1-a980-0fc22ba8d516 ns:hasGS ns:06ecce32-dc24-4b1c-88c4-4eb4d52e43ef .
+ns:09a2a804-3249-41a1-a980-0fc22ba8d516 ns:hasReservationIdentifier "Reserv_09a2a804" .
+##############################################################
+# Reservation 9
+ns:0e91e757-01a2-4c98-809a-41922fc5db89 rdf:type ns:Reservation .
+ns:0e91e757-01a2-4c98-809a-41922fc5db89 ns:reservedByVehicle ns:5cfa73d6-34a9-420b-ae6b-b10712c273d6 .
+ns:0e91e757-01a2-4c98-809a-41922fc5db89 ns:hasUser ns:33ab29eb-003a-435c-b141-4db9c5d45bae .
+ns:0e91e757-01a2-4c98-809a-41922fc5db89 ns:hasGS ns:bda8a77c-f7e5-4a46-abbd-ea0370ee51d0 .
+ns:0e91e757-01a2-4c98-809a-41922fc5db89 ns:hasReservationIdentifier "Reserv_0e91e757" .
+##############################################################
+# Reservation 10
+ns:517c0c35-c721-4cae-a4e0-42b4fb822d0f rdf:type ns:Reservation .
+ns:517c0c35-c721-4cae-a4e0-42b4fb822d0f ns:reservedByVehicle ns:5cfa73d6-34a9-420b-ae6b-b10712c273d6 .
+ns:517c0c35-c721-4cae-a4e0-42b4fb822d0f ns:hasUser ns:33ab29eb-003a-435c-b141-4db9c5d45bae .
+ns:517c0c35-c721-4cae-a4e0-42b4fb822d0f ns:hasGS ns:2da444d4-4a24-4f21-b406-b037adff4a79 .
+ns:517c0c35-c721-4cae-a4e0-42b4fb822d0f ns:hasReservationIdentifier "Reserv_517c0c35" .
+##############################################################
